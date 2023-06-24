@@ -2,6 +2,7 @@ import {
   AppShell,
   Badge,
   Burger,
+  Button,
   Code,
   Flex,
   Header,
@@ -13,6 +14,7 @@ import {
   Title,
   useMantineTheme,
 } from "@mantine/core";
+import { IconBrandGithub, IconMoonStars, IconSun } from "@tabler/icons";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useStore } from "react-redux";
 import { Outlet } from "react-router-dom";
@@ -21,7 +23,6 @@ import AccountAction from "./AccountAction";
 import ActiveJob from "./ActiveJob";
 import Login from "./Login";
 import NavbarMenu from "./NavbarMenu";
-import { IconSun, IconMoonStars } from "@tabler/icons";
 
 export default function Layout() {
   const theme = useMantineTheme();
@@ -93,7 +94,6 @@ export default function Layout() {
             style={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
               height: "100%",
               width: "100%",
             }}
@@ -117,8 +117,21 @@ export default function Layout() {
               </Badge>
             </Flex>
 
+            <Button
+              ml="auto"
+              mr={"sm"}
+              size="xs"
+              component="a"
+              href="https://github.com/ahuseyn/TGcollector"
+              target="_blank"
+              variant="outline"
+              leftIcon={<IconBrandGithub size={"1.25rem"} />}
+            >
+              GitHub
+            </Button>
+
             <Switch
-              size="md"
+              size="lg"
               color={theme.colorScheme === "dark" ? "gray" : "dark"}
               onLabel={
                 <IconSun
