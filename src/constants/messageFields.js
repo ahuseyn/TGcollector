@@ -1,47 +1,47 @@
 export const messageFields = [
   {
     value: "id",
-    label: "Message ID",
-    description: "Lorem ipsum dolor...",
+    label: "id",
+    description: "Message ID",
   },
   {
     value: "message",
-    label: "Message content",
-    description: "Lorem ipsum dolor...",
+    label: "message",
+    description: "Message text content",
   },
   {
     value: "messageLink",
-    label: "Message link",
-    description: "Lorem ipsum dolor...",
+    label: "messageLink",
+    description: "Link to the message (t.me/ch/123...)",
   },
   {
     value: "date",
-    label: "Post date",
-    description: "Lorem ipsum dolor...",
+    label: "date",
+    description: "Creation date",
   },
   {
     value: "pinned",
-    label: "Is pinned",
-    description: "Lorem ipsum dolor...",
+    label: "pinned",
+    description: "Is message pinned",
   },
   {
     value: "views",
-    label: "View count",
-    description: "Lorem ipsum dolor...",
+    label: "views",
+    description: "View count",
   },
   {
     value: "forwards",
-    label: "Forward count",
-    description: "Lorem ipsum dolor...",
+    label: "forwards",
+    description: "Forward count",
   },
   {
     value: "fwdFrom",
-    label: "Forward details",
-    description: "Info about forwarded messages",
+    label: "fwdFrom",
+    description: "Info about forwarded message",
   },
   {
     value: "viaBotId",
-    label: "Bot ID",
+    label: "viaBotId",
     description: "ID of the inline bot that generated the message",
   },
   // {
@@ -51,46 +51,42 @@ export const messageFields = [
   // },
   {
     value: "editDate",
-    label: "Edit date",
+    label: "editDate",
     description: "Last edit date of this message",
   },
   {
     value: "postAuthor",
-    label: "Post author",
-    description:
-      "Name of the author of this message for channel posts (with signatures enabled)",
+    label: "postAuthor",
+    description: "Name of the author of the message",
   },
   {
     value: "replies",
-    label: "Replies",
-    description:
-      "Info about post comments (for channels) or message replies (for groups)",
+    label: "replies",
+    description: "Info about post comments or replies",
   },
   {
     value: "groupedId",
-    label: "Grouped ID",
-    description:
-      "Multiple media messages sent using messages.sendMultiMedia with the same grouped ID indicate an album or media group",
+    label: "groupedId",
+    description: "ID of the album or media group inside message",
   },
   {
     value: "reactions",
-    label: "Reactions",
-    description: "Reactions to this message",
+    label: "reactions",
+    description: "Reactions to the message",
   },
   {
     value: "post",
-    label: "Is channel post",
+    label: "post",
     description: "Whether this is a channel post",
   },
   {
     value: "entities",
-    label: "Entities",
-    description: "Message entities for styled text",
+    label: "entities",
+    description: "Text urls inside the message",
   },
   {
     value: "restrictionReason",
-    label: "Restriction Reason",
-    description:
-      "Contains the reason why access to this message must be restricted.",
+    label: "restrictionReason",
+    description: "Reason of the message restriction (if restricted)",
   },
 ];
