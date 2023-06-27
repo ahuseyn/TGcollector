@@ -1,6 +1,6 @@
 {
   "name": "tgcollector",
-  "version": "1.0.0-beta",
+  "version": "1.0.1-beta",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.5",
