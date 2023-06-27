@@ -109,7 +109,14 @@ export default function Layout() {
             </MediaQuery>
 
             <Flex align={"center"}>
-              <Title size="h1" order={1} ml={"sm"} ff="'Montez'">
+              <Title
+                component="a"
+                href={"/"}
+                size="h1"
+                order={1}
+                ml={"sm"}
+                ff="'Montez'"
+              >
                 TG collector{" "}
               </Title>
               <Badge ml={"sm"} size="xs">
