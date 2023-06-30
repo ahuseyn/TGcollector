@@ -4,6 +4,7 @@ import Layout from "./components/Layout";
 import Collection from "./pages/Collection";
 import Dashboard from "./pages/Dashboard";
 import { useSelector, shallowEqual } from "react-redux";
+import Terms from "./pages/Terms";
 
 export default function Navigation() {
   const theme = useSelector((state) => state.theme, shallowEqual);
@@ -23,6 +24,7 @@ export default function Navigation() {
           <Route element={<Layout />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="collection/:id/" element={<Collection />} />
+            <Route path="terms" element={<Terms />} />
           </Route>
         </Routes>
       </BrowserRouter>
