@@ -15,7 +15,8 @@ import { QRCodeSVG } from "qrcode.react";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { TelegramClient } from "telegram";
+import { Link } from "react-router-dom";
+import { Api, TelegramClient } from "telegram";
 import { StringSession } from "telegram/sessions";
 import { apiLogin, setAskLogin } from "../../store/reducers/root";
 
@@ -46,6 +47,32 @@ export default function Login() {
     setLoading(false);
   }, [askLogin]);
 
+  const postLogin = async (user, gramClient) => {
+    if (user instanceof Api.User) {
+      const sessionString = gramClient.session.save();
+      const { phone, firstName } = user.toJSON();
+
+      await gramClient.disconnect();
+
+      dispatch(
+        apiLogin({
+          logged: true,
+          remember: state.remember,
+          session: sessionString,
+          api: `${apiId},${apiHash}`,
+          userInfo: { firstName, phone },
+        })
+      );
+
+      dispatch(setAskLogin(false));
+    } else {
+      toast.error("Login failed!");
+      setState({
+        stage: 0,
+      });
+    }
+  };
+
   const onLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -57,7 +84,7 @@ export default function Login() {
 
       await gramClient.connect();
 
-      let user = await gramClient.signInUserWithQrCode(
+      const user = await gramClient.signInUserWithQrCode(
         { apiId, apiHash },
         {
           onError: async function () {
@@ -84,30 +111,7 @@ export default function Login() {
         }
       );
 
-      if (user?.accessHash?.value) {
-        const sessionString = gramClient.session.save();
-
-        await gramClient.disconnect();
-
-        const userInfo = user.toJSON();
-
-        dispatch(
-          apiLogin({
-            remember: state.remember,
-            logged: true,
-            session: sessionString,
-            api: `${apiId},${apiHash}`,
-            userInfo: { firstName: userInfo.firstName, phone: userInfo.phone },
-          })
-        );
-
-        dispatch(setAskLogin(false));
-      } else {
-        toast.error("Unknown error: Could not log in!");
-        setState({
-          stage: 0,
-        });
-      }
+      postLogin(user, gramClient);
     } catch (err) {
       if (String(err) !== "Error: AUTH_USER_CANCEL") {
         toast.error(String(err) + "");
@@ -127,7 +131,7 @@ export default function Login() {
 
       await gramClient.connect();
 
-      let user = await gramClient.signInWithPassword(
+      const user = await gramClient.signInWithPassword(
         { apiId, apiHash },
         {
           password: () => state.password,
@@ -137,30 +141,7 @@ export default function Login() {
         }
       );
 
-      if (user?.accessHash?.value) {
-        const sessionString = gramClient.session.save();
-
-        await gramClient.disconnect();
-
-        const userInfo = user.toJSON();
-
-        dispatch(
-          apiLogin({
-            remember: state.remember,
-            logged: true,
-            session: sessionString,
-            api: `${apiId},${apiHash}`,
-            userInfo: { firstName: userInfo.firstName, phone: userInfo.phone },
-          })
-        );
-
-        dispatch(setAskLogin(false));
-      } else {
-        toast.error("Unknown error: Could not log in!");
-        setState({
-          stage: 0,
-        });
-      }
+      postLogin(user, gramClient);
     } catch (err) {
       toast.error(err);
       setState({
@@ -290,6 +271,17 @@ export default function Login() {
           </Paper>
         </>
       )}
+      <Text color="dimmed" size="sm" align="center" mt={15}>
+        By using this website, you are agreeing to the{" "}
+        <Anchor
+          onClick={() => dispatch(setAskLogin(false))}
+          component={Link}
+          to="/terms"
+        >
+          Terms of Use
+        </Anchor>
+        .
+      </Text>
     </Modal>
   );
 }
