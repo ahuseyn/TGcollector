@@ -3,7 +3,7 @@ import { Anchor, Box, Container, Text, Title } from "@mantine/core";
 export default function Dashboard() {
   return (
     <Container fluid>
-      <Box w={720}>
+      <Box maw={720}>
         <Title size={"h2"} mb={"lg"}>
           A few words on TG collector
         </Title>
