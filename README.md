@@ -4,6 +4,8 @@
 
 **Use it online: <a href="https://www.tgcollector.com/">www.tgcollector.com</a>**
 
+**Tutorial to get started: <a href="https://osintteam.blog/open-source-tool-for-open-source-researchers-how-to-use-tg-collector-to-scrape-telegram-channels-a5e934ea3cf1">Open source tool for open source researchers: How to use TG Collector to scrape Telegram channels?</a>**
+
 <br>
 
 Tg collector (TGC) is a browser based graphical user interface for collecting Telegram messages from the channels. The purpose of this tool is to facilitate the workload of researchers who work with Telegram channels.
