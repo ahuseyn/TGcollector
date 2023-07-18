@@ -1,28 +1,19 @@
 import { Divider, NavLink, ThemeIcon } from "@mantine/core";
 import { IconFolder, IconHome, IconPlus } from "@tabler/icons";
-import { nanoid } from "nanoid";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
-import { insertCollection } from "../../store/reducers/root";
-import { insertChannelsIDB } from "../../pages/Collection/helpers/insertCollectionIDB";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import insertCollection from "../../helpers/insertCollection";
 
 export default function NavbarMenu() {
-  const dispatch = useDispatch();
   const { pathname } = useLocation();
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const collections = useSelector((state) => state.collections, shallowEqual);
 
-  const _insertCollection = () => {
-    const id = nanoid(8);
-    const title = `Collection ${Object.keys(collections).length + 1}`;
-
-    dispatch(
-      insertCollection({
-        [id]: { id, title, channels: {} },
-      })
-    );
-
-    insertChannelsIDB(id);
-  };
+  const _insertCollection = () =>
+    insertCollection(Object.keys(collections).length + 1, dispatch, navigate);
 
   return (
     <>
