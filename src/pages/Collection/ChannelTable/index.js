@@ -1,4 +1,5 @@
 import { Box, Button, Checkbox, Table, createStyles } from "@mantine/core";
+import { IconDownload } from "@tabler/icons";
 import { useState } from "react";
 import ChannelItem from "./ChannelItem";
 
@@ -14,6 +15,7 @@ const useStyles = createStyles((theme) => ({
 export function TableSelection({
   data,
   onSelect = () => {},
+  onExport = () => {},
   onRemove = () => {},
 }) {
   const { classes, cx } = useStyles();
@@ -52,6 +54,15 @@ export function TableSelection({
         <Button
           variant="outline"
           ml="auto"
+          mr={"sm"}
+          disabled={selection.length === 0}
+          onClick={() => onExport(selection)}
+          leftIcon={<IconDownload size="16" />}
+        >
+          Export selected
+        </Button>
+        <Button
+          variant="primary"
           disabled={selection.length === 0}
           onClick={() => onSelect(selection)}
         >

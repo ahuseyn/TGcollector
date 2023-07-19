@@ -9,6 +9,7 @@ import { insertJob } from "../../store/reducers/root";
 import { TableSelection } from "./ChannelTable";
 import CollectDialog from "./CollectDialog";
 import { toast } from "react-hot-toast";
+import { exportCollection } from "../../helpers/exportCollection";
 
 export default function ChannelsList({ collection, channels, deleteChannel }) {
   const dispatch = useDispatch();
@@ -20,6 +21,15 @@ export default function ChannelsList({ collection, channels, deleteChannel }) {
   const onSelect = (selection) => {
     setState({ ...state, channels: selection });
     open();
+  };
+
+  const onExport = (selection) => {
+    const name = `${collection.title}_${collection.id}`;
+    const selected = channels.filter((item) =>
+      selection.includes(item.username)
+    );
+
+    exportCollection(selected, name);
   };
 
   const onCollect = () => {
@@ -59,6 +69,7 @@ export default function ChannelsList({ collection, channels, deleteChannel }) {
             <TableSelection
               data={channels}
               onSelect={onSelect}
+              onExport={onExport}
               onRemove={deleteChannel}
             />
           }
