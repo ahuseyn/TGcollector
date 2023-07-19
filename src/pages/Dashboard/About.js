@@ -7,10 +7,10 @@ export function About() {
         More about TG collector
       </Title>
       <Text>
-        <strong>TGC is a tool</strong>, not a service, therefore does not
-        collect any personal data (except anonymous usage statistics described
-        below). All operations taking place on the browser, all data, including
-        Telegram credentials being kept either in{" "}
+        <u>TGC is a tool</u>, not a service, therefore does not collect any
+        personal data (except anonymous usage statistics described below). All
+        operations taking place on the browser, all data, including Telegram
+        credentials being kept either in{" "}
         <Anchor
           href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage"
           target="_blank"
@@ -38,7 +38,11 @@ export function About() {
       <Text mt={"sm"}>
         Collections and collected messages does not attached to the specific
         Telegram account. So if you log out from your account they will not go
-        away. And you can use another account to continue the work with.
+        away. And you can use another account to continue the work with.{" "}
+        <u>
+          It also means if you clean your browser's data all your collections
+          will be gone.
+        </u>
       </Text>
     </Box>
   );

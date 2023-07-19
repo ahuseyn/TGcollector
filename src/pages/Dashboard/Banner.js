@@ -57,7 +57,7 @@ export default function Banner() {
 
   const items = features.map((feature) => (
     <div key={feature.title}>
-      <ThemeIcon size={44} radius="md" variant="filled" color="indigo">
+      <ThemeIcon size={44} radius="md" variant="gradient" gradient={{ deg: 0, from: "indigo", to: "blue" }}>
         <feature.icon size={26} stroke={1.5} />
       </ThemeIcon>
       <Text fz="lg" mt="sm" fw={500}>
@@ -72,7 +72,7 @@ export default function Banner() {
   return (
     <Paper shadow={"lg"} p={"lg"}>
       <Grid gutter={80}>
-        <Col sm={12} md={12} lg={5}>
+        <Col sm={12} md={12} lg={6}>
           <Title order={1} fw={900}>
             The Telegram collector you've been waiting for
           </Title>
@@ -90,7 +90,8 @@ export default function Banner() {
               {"Create your first collection to"}
             </Text>
             <Button
-              color="indigo"
+              variant="gradient" 
+              gradient={{ deg: 0, from: "indigo", to: "blue" }}
               size="md"
               radius="md"
               onClick={_insertCollection}
@@ -99,7 +100,7 @@ export default function Banner() {
             </Button>
           </Flex>
         </Col>
-        <Col sm={12} md={12} lg={7}>
+        <Col sm={12} md={12} lg={6}>
           <SimpleGrid
             cols={2}
             spacing={30}

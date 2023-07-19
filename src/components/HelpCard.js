@@ -1,4 +1,10 @@
-import { Paper, Text, ThemeIcon, createStyles } from "@mantine/core";
+import {
+  Paper,
+  Text,
+  ThemeIcon,
+  createStyles,
+  useMantineTheme,
+} from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -35,6 +41,7 @@ export default function HelpCard({
 }) {
   const Icon = icon;
   const { classes } = useStyles();
+  const { colors, fn } = useMantineTheme();
 
   const openUrl = () => window.open(url, "_blank").focus();
 
@@ -46,12 +53,17 @@ export default function HelpCard({
       onClick={openUrl}
       sx={{
         "&::before": {
-          background: color,
+          background: colors[color],
+          backgroundImage: fn.linearGradient(
+            0,
+            colors.indigo[6],
+            colors[color][6]
+          ),
         },
       }}
       {...rest}
     >
-      <ThemeIcon size="xl" radius="md" color={color}>
+      <ThemeIcon size="xl" radius="md" variant="gradient" gradient={{ deg: 0, from: colors.indigo[6], to: colors[color][6] }}>
         <Icon size={28} stroke={1.5} />
       </ThemeIcon>
       <Text size="xl" weight={500} mt="md">
