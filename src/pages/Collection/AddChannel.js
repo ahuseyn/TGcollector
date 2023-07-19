@@ -24,6 +24,8 @@ export default function AddChannel({ collectionId, onInserted = () => {} }) {
       return dispatch(setAskLogin(true));
     }
 
+    toast.loading("Inserting channels", { id: "add-channel" });
+
     try {
       const readyChannels = channel.replace(/\s/g, "").split(",");
       const values = await getChannelsTG(client, readyChannels);
@@ -37,7 +39,7 @@ export default function AddChannel({ collectionId, onInserted = () => {} }) {
 
       if (total - failCount > 0) {
         toast.success(`${total - failCount} channel added successfully`, {
-          id: "channel-add-done",
+          id: "add-channel",
         });
       }
     } catch (err) {
