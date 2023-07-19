@@ -26,12 +26,18 @@ export function TableSelection({
         ? current.filter((item) => item !== id)
         : [...current, id]
     );
+
+  // Sort data by subscriber count
+  const sorted = data.sort((a, b) => b.participantsCount - a.participantsCount);
+
   const toggleAll = () =>
     setSelection((current) =>
-      current.length === data.length ? [] : data.map((item) => item.username)
+      current.length === sorted.length
+        ? []
+        : sorted.map((item) => item.username)
     );
 
-  const rows = data.map((item) => {
+  const rows = sorted.map((item) => {
     const selected = selection.includes(item.username);
 
     return (
@@ -84,9 +90,9 @@ export function TableSelection({
             <th>
               <Checkbox
                 onChange={toggleAll}
-                checked={selection.length === data.length}
+                checked={selection.length === sorted.length}
                 indeterminate={
-                  selection.length > 0 && selection.length !== data.length
+                  selection.length > 0 && selection.length !== sorted.length
                 }
                 transitionDuration={0}
               />
