@@ -1,21 +1,8 @@
 import { openDB } from "idb";
 import { json2csv } from "json-2-csv";
 import { toast } from "react-hot-toast";
-
-const replacer = (key, val) => (typeof val === "bigint" ? val.toString() : val);
-
-function bigintConvert(obj) {
-  if (typeof obj === "object" && obj !== null) {
-    for (let key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        obj[key] = bigintConvert(obj[key]);
-      }
-    }
-  } else if (typeof obj === "bigint") {
-    obj = obj.toString();
-  }
-  return obj;
-}
+import { bigintConvert, replacer } from "../../../../helpers/bigint";
+import serveFile from "../../../../helpers/serveFile";
 
 export async function downloadFile(job, name, format) {
   if (!Boolean(format)) {
@@ -48,18 +35,4 @@ export async function downloadFile(job, name, format) {
     default:
       toast.error("Please provide a valid file format");
   }
-}
-
-function serveFile(blob, filename) {
-  // Create a temporary anchor element
-  const anchor = document.createElement("a");
-  anchor.href = URL.createObjectURL(blob);
-  anchor.download = filename;
-
-  // Programmatically trigger the download
-  anchor.click();
-
-  // Clean up
-  URL.revokeObjectURL(anchor.href);
-  anchor.remove();
 }
