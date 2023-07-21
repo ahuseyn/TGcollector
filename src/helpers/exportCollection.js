@@ -6,6 +6,7 @@ export async function exportCollection(data, name) {
   const fileName = name.replace(/[^a-z0-9]/gi, "_").toLowerCase();
 
   const cleanedData = data.map((c) => ({
+    url: `https://t.me/${c.username}`,
     ...c,
     id: c.id.toString(),
     creationDate: dayjs.unix(c.creationDate).format("YYYY-MM-DD"),
