@@ -6,12 +6,12 @@ import {
   Code,
   Flex,
   Header,
-  MediaQuery,
   Navbar,
   ScrollArea,
   Switch,
   Text,
   Title,
+  createStyles,
   useMantineTheme,
 } from "@mantine/core";
 import { IconBrandGithub, IconMoonStars, IconSun } from "@tabler/icons";
@@ -24,9 +24,45 @@ import ActiveJob from "./ActiveJob";
 import Login from "./Login";
 import NavbarMenu from "./NavbarMenu";
 
+const useStyles = createStyles((theme) => ({
+  headerInner: {
+    display: "flex",
+    alignItems: "center",
+    height: "100%",
+    width: "100%",
+  },
+  burger: {
+    [theme.fn.largerThan("sm")]: {
+      display: "none",
+    },
+  },
+  title: {
+    [theme.fn.smallerThan("sm")]: {
+      fontSize: "1.5rem",
+      marginLeft: "-0.25rem",
+    },
+  },
+  betaBadge: {
+    [theme.fn.smallerThan("xs")]: {
+      display: "none",
+    },
+  },
+  ghButton: {
+    [theme.fn.smallerThan("xs")]: {
+      ".mantine-Button-leftIcon": {
+        marginRight: "-5px",
+      },
+      ".mantine-Button-label": {
+        display: "none",
+      },
+    },
+  },
+}));
+
 export default function Layout() {
   const theme = useMantineTheme();
   const store = useStore();
+  const { classes } = useStyles();
   const dispatch = useDispatch();
 
   const [opened, setOpened] = useState(false);
@@ -82,26 +118,19 @@ export default function Layout() {
       }
       header={
         <Header height={{ base: 50, md: 70 }} p="md">
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              height: "100%",
-              width: "100%",
-            }}
-          >
-            <MediaQuery largerThan="sm" styles={{ display: "none" }}>
-              <Burger
-                opened={opened}
-                onClick={() => setOpened((o) => !o)}
-                size="sm"
-                color={theme.colors.gray[6]}
-                mr="xl"
-              />
-            </MediaQuery>
+          <div className={classes.headerInner}>
+            <Burger
+              className={classes.burger}
+              opened={opened}
+              onClick={() => setOpened((o) => !o)}
+              size="sm"
+              color={theme.colors.gray[6]}
+              mr="xl"
+            />
 
             <Flex align={"center"}>
               <Title
+                className={classes.title}
                 component="a"
                 href={"/"}
                 size="h1"
@@ -111,7 +140,8 @@ export default function Layout() {
               >
                 TG collector{" "}
               </Title>
-              <Badge ml={"sm"} size="xs">
+
+              <Badge ml={"sm"} className={classes.betaBadge} size="xs">
                 BETA
               </Badge>
             </Flex>
@@ -125,8 +155,9 @@ export default function Layout() {
               target="_blank"
               variant="outline"
               leftIcon={<IconBrandGithub size={"1.25rem"} />}
+              className={classes.ghButton}
             >
-              GitHub
+              <span>GitHub</span>
             </Button>
 
             <Switch
