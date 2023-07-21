@@ -1,5 +1,13 @@
-import { Alert, Avatar, Button, Card, Flex, Text } from "@mantine/core";
-import { IconAlertCircle } from "@tabler/icons";
+import {
+  ActionIcon,
+  Alert,
+  Button,
+  Card,
+  Flex,
+  Menu,
+  Text,
+} from "@mantine/core";
+import { IconAlertCircle, IconDots } from "@tabler/icons";
 import React, { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Api } from "telegram";
@@ -42,9 +50,8 @@ export default function AccountAction() {
           </Button>
         </>
       ) : (
-        <Card withBorder shadow="xs" p={10}>
+        <Card withBorder shadow="xs" sx={{ overflow: "visible" }} p={10}>
           <Flex align={"center"}>
-            <Avatar size={45} mr={5} />
             <div style={{ flex: 1 }}>
               <Text size="sm">
                 Logged in as{" "}
@@ -57,16 +64,26 @@ export default function AccountAction() {
                 Phone: {user.userInfo?.phone}
               </Text>
             </div>
+            <Menu shadow="xs" withArrow position="bottom-end">
+              <Menu.Target>
+                <ActionIcon color="indigo">
+                  <IconDots size="1.25rem" />
+                </ActionIcon>
+              </Menu.Target>
+
+              <Menu.Dropdown>
+                <Button
+                  w={160}
+                  variant="light"
+                  onClick={logOut}
+                  loading={loading}
+                  icon={<IconDots size={14} />}
+                >
+                  Log out
+                </Button>
+              </Menu.Dropdown>
+            </Menu>
           </Flex>
-          <Button
-            variant="light"
-            mt={10}
-            fullWidth
-            onClick={logOut}
-            loading={loading}
-          >
-            Log out
-          </Button>
         </Card>
       )}
     </>
