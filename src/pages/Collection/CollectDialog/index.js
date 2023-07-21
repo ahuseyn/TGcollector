@@ -81,13 +81,14 @@ export default function CollectDialog({
               mr={10}
               required
               min={1}
+              max={100}
               label={
                 <Group position="apart">
                   <Text> {"Message per request"} </Text>
                   <Tooltip
                     width={240}
                     multiline
-                    label="Reasonable amount of message per request keep you from being blocked by Telegram"
+                    label="Reasonable amount of message per request keep you from being blocked by Telegram (Max 100)"
                     position="top-end"
                     withArrow
                   >
