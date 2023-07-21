@@ -8,15 +8,12 @@ import {
   Select,
   Text,
 } from "@mantine/core";
-import {
-  IconDownload,
-  IconExclamationCircle,
-  IconList
-} from "@tabler/icons";
+import { IconDownload, IconExclamationCircle, IconList } from "@tabler/icons";
 import dayjs from "dayjs";
 import { useState } from "react";
 import ConfirmDelete from "../../../components/ConfirmDelete";
 import { downloadFile } from "./helpers/downloadFile";
+import { toast } from "react-hot-toast";
 
 const statusColors = {
   canceled: "pink",
@@ -27,7 +24,10 @@ const statusColors = {
 export default function JobItem({ data, onRemove = () => {} }) {
   const [format, setFormat] = useState("");
 
-  const onDownload = () => downloadFile(data.id, data.name, format);
+  const onDownload = () => {
+    toast.loading("Preparing file", { id: "download-file" });
+    downloadFile(data.id, data.name, format);
+  };
 
   return (
     <>

@@ -1,3 +1,5 @@
+import { toast } from "react-hot-toast";
+
 export default function serveFile(blob, filename) {
   // Create a temporary anchor element
   const anchor = document.createElement("a");
@@ -10,4 +12,6 @@ export default function serveFile(blob, filename) {
   // Clean up
   URL.revokeObjectURL(anchor.href);
   anchor.remove();
+
+  toast.success("Download complete", { id: "download-file" });
 }
