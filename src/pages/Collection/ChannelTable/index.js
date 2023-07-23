@@ -1,4 +1,11 @@
-import { Box, Button, Checkbox, Table, createStyles } from "@mantine/core";
+import {
+  Box,
+  Button,
+  Checkbox,
+  ScrollArea,
+  Table,
+  createStyles,
+} from "@mantine/core";
 import { IconDownload } from "@tabler/icons";
 import { useState } from "react";
 import ChannelItem from "./ChannelItem";
@@ -84,29 +91,31 @@ export function TableSelection({
           Delete selected
         </Button> */}
       </Box>
-      <Table verticalSpacing="sm">
-        <thead>
-          <tr>
-            <th>
-              <Checkbox
-                onChange={toggleAll}
-                checked={selection.length === sorted.length}
-                indeterminate={
-                  selection.length > 0 && selection.length !== sorted.length
-                }
-                transitionDuration={0}
-              />
-            </th>
-            <th>Channel</th>
+      <ScrollArea>
+        <Table sx={{ minWidth: 800 }} verticalSpacing="sm">
+          <thead>
+            <tr>
+              <th>
+                <Checkbox
+                  onChange={toggleAll}
+                  checked={selection.length === sorted.length}
+                  indeterminate={
+                    selection.length > 0 && selection.length !== sorted.length
+                  }
+                  transitionDuration={0}
+                />
+              </th>
+              <th>Channel</th>
 
-            <th>Description</th>
-            <th>Subscribers</th>
-            <th>Created</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </Table>
+              <th>Description</th>
+              <th>Subscribers</th>
+              <th>Created</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>{rows}</tbody>
+        </Table>
+      </ScrollArea>
     </>
   );
 }

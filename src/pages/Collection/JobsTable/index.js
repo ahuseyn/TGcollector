@@ -1,8 +1,8 @@
-import { Box, Table, Text } from "@mantine/core";
+import { Box, ScrollArea, Table, Text } from "@mantine/core";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import JobItem from "./JobItem";
-import { deleteIDB } from "../helpers/deleteIDB";
 import { deleteJob } from "../../../store/reducers/root";
+import { deleteIDB } from "../helpers/deleteIDB";
+import JobItem from "./JobItem";
 
 export default function JobsTable({ collection }) {
   const jobs = useSelector((state) => state.jobs, shallowEqual);
@@ -28,26 +28,28 @@ export default function JobsTable({ collection }) {
   return (
     <>
       <Box display={"flex"} mb={15}></Box>
-      <Table verticalSpacing="sm">
-        <thead>
-          <tr>
-            <th>Job name</th>
-            <th>Start date</th>
-            <th>Status</th>
-            <th>Channels</th>
-            <th>Messages</th>
-            <th>Download file</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {jobArr.reverse().map((item) => (
-            <tr key={item.id}>
-              <JobItem data={item} onRemove={() => removeJob(item.id)} />
+      <ScrollArea>
+        <Table sx={{ minWidth: 800 }} verticalSpacing="sm">
+          <thead>
+            <tr>
+              <th>Job name</th>
+              <th>Start date</th>
+              <th>Status</th>
+              <th>Channels</th>
+              <th>Messages</th>
+              <th>Download file</th>
+              <th></th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {jobArr.reverse().map((item) => (
+              <tr key={item.id}>
+                <JobItem data={item} onRemove={() => removeJob(item.id)} />
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </ScrollArea>
     </>
   );
 }
