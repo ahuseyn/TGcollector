@@ -7,6 +7,7 @@ import { IDB_MSG_THRESHOLD } from "../../constants/parameters";
 import JobContext from "../../context/JobContext";
 import { updateJob } from "../../store/reducers/root";
 import { ClientContext } from "../ClientProvider";
+import getAction from "./getAction";
 import { reshapeObject } from "./reshapeObject";
 
 export default function Collector({ children }) {
@@ -55,6 +56,7 @@ export default function Collector({ children }) {
           ...object,
           channel: currentChannel,
           className: item.className,
+          action: getAction(item.action),
         };
       });
 
