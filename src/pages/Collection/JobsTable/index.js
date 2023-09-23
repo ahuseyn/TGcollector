@@ -28,7 +28,7 @@ export default function JobsTable({ collection }) {
   return (
     <>
       <Box display={"flex"} mb={15}></Box>
-      <ScrollArea>
+      <ScrollArea sx={{ overflow: "visible" }}>
         <Table sx={{ minWidth: 800 }} verticalSpacing="sm">
           <thead>
             <tr>
