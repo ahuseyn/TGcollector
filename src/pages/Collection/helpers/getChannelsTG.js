@@ -34,7 +34,7 @@ export const getChannelsTG = (client, channels) => {
         .catch((err) =>
           toast.error(
             `Channel could not be added: ${err.errorMessage || err}`,
-            { id: `${item}-insert-error` }
+            { id: `add-channel` }
           )
         )
     )

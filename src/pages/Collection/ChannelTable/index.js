@@ -72,7 +72,7 @@ export function TableSelection({
           onClick={() => onExport(selection)}
           leftIcon={<IconDownload size="16" />}
         >
-          Export selected
+          Export channel info
         </Button>
         <Button
           variant="primary"

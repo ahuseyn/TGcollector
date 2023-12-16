@@ -79,7 +79,7 @@ export default function Banner() {
           <Text c="dimmed" mt={"lg"}>
             TG collector (TGC) is a browser based graphical user interface for
             collecting Telegram messages from the channels. It will help you to
-            facilitate your Telegram based research projects. Beside collecting
+            facilitate your Telegram based research projects. Besides collecting
             messages you'll be able to organize your channels in folders. After
             collecting messages you can download them as JSON or CSV. Your
             collecting projects will be in your browser to download at any time.

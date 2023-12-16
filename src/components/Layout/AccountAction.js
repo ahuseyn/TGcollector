@@ -7,7 +7,8 @@ import {
   Menu,
   Text,
 } from "@mantine/core";
-import { IconAlertCircle, IconDots } from "@tabler/icons";
+import { useToggle } from "@mantine/hooks";
+import { IconAlertCircle, IconDots, IconEye, IconEyeOff } from "@tabler/icons";
 import React, { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Api } from "telegram";
@@ -20,6 +21,7 @@ export default function AccountAction() {
   const user = useSelector((state) => state.user);
   const openLogin = () => dispatch(setAskLogin(true));
   const [loading, setLoading] = useState(false);
+  const [phone, togglePhone] = useToggle([false, true]);
 
   const logOut = async () => {
     if (!user.logged) return;
@@ -60,9 +62,25 @@ export default function AccountAction() {
                 </Text>
               </Text>
 
-              <Text color="dimmed" size="sm">
-                Phone: {user.userInfo?.phone}
-              </Text>
+              <Flex>
+                <Text color="dimmed" size="sm">
+                  Phone:
+                </Text>
+                {phone && (
+                  <Text ml={5} color="dimmed" size="sm">
+                    {user.userInfo?.phone}
+                  </Text>
+                )}
+                <ActionIcon
+                  variant="filled"
+                  size="sm"
+                  aria-label="Show phone number"
+                  ml={5}
+                  onClick={togglePhone}
+                >
+                  {phone ? <IconEyeOff /> : <IconEye />}
+                </ActionIcon>
+              </Flex>
             </div>
             <Menu shadow="xs" withArrow position="bottom-end">
               <Menu.Target>

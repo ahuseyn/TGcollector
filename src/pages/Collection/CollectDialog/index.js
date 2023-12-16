@@ -52,7 +52,7 @@ export default function CollectDialog({
           <TextInput
             withAsterisk={false}
             sx={{ flex: 1 }}
-            label="Job name"
+            label="Job name (name for the collection task)"
             required
             placeholder="Type the job name..."
             value={state.name}
