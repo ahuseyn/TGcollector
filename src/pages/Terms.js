@@ -116,11 +116,11 @@ export default function Terms() {
         <List className={classes.list}>
           <List.Item>
             This Agreement shall be governed by and construed in accordance with
-            the laws of Azerbaijan.
+            the laws of Poland.
           </List.Item>
           <List.Item>
             Any disputes arising from this Agreement shall be subject to the
-            exclusive jurisdiction of the courts of Azerbaijan.
+            exclusive jurisdiction of the courts of Poland.
           </List.Item>
         </List>
       </div>
