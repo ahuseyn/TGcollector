@@ -11,11 +11,11 @@ export default function ActiveJob() {
     return null;
   }
 
-  const channelCount = data?.params.channels.length;
+  const channelCount = data?.params?.channels?.length;
   const currentChannel = data?.current?.channelIndex + 1 || 1;
-  const currentChannelId = data.current.chanelHandle;
-  const totalCurrentMsg = data.current.messageCount;
-  const totalCollectedMsg = data.current.collectedCount;
+  const currentChannelId = data?.current?.chanelHandle;
+  const totalCurrentMsg = data?.current?.messageCount;
+  const totalCollectedMsg = data?.current?.collectedCount;
 
   const onCancel = () => {
     dispatch(cancelJob(data.id));
