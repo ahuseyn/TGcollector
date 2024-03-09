@@ -1,13 +1,12 @@
 import { Analytics } from "@vercel/analytics/react";
-import React from "react";
+import Navigation from "Navigation";
+import ClientProvider from "components/ClientProvider";
+import Collector from "components/Collector";
 import ReactDOM from "react-dom/client";
 import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import Navigation from "./Navigation";
-import ClientProvider from "./components/ClientProvider";
-import Collector from "./components/Collector";
-import store, { persistor } from "./store";
+import store, { persistor } from "store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

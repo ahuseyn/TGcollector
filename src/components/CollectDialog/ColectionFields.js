@@ -1,6 +1,6 @@
 import { MultiSelect, Text } from "@mantine/core";
+import { messageFields } from "constants/messageFields";
 import { forwardRef } from "react";
-import { messageFields } from "../../../constants/messageFields";
 
 export default function CollectionFields({ data, onChange, ...rest }) {
   return (

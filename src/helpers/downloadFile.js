@@ -1,8 +1,8 @@
 import { openDB } from "idb";
 import { json2csv } from "json-2-csv";
 import { toast } from "react-hot-toast";
-import { bigintConvert, replacer } from "../../../../helpers/bigint";
-import serveFile from "../../../../helpers/serveFile";
+import { bigintConvert, replacer } from "helpers/bigint";
+import serveFile from "helpers/serveFile";
 
 export async function downloadFile(job, name, format) {
   if (!Boolean(format)) {

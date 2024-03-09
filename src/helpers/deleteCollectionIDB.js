@@ -1,5 +1,5 @@
+import { deleteIDB } from "helpers/deleteIDB";
 import { toast } from "react-hot-toast";
-import { deleteIDB } from "./deleteIDB";
 
 export const deleteCollectionIDB = async (colId, jobs) => {
   Promise.all([

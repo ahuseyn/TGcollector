@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
+import serveFile from "helpers/serveFile";
 import { json2csv } from "json-2-csv";
-import serveFile from "./serveFile";
 
 export async function exportCollection(data, name) {
   const fileName = name.replace(/[^a-z0-9]/gi, "_").toLowerCase();

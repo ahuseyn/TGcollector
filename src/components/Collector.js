@@ -1,14 +1,14 @@
+import { ClientContext } from "components/ClientProvider";
+import { IDB_MSG_THRESHOLD } from "constants/parameters";
+import JobContext from "context/JobContext";
+import getAction from "helpers/getAction";
+import { reshapeObject } from "helpers/reshapeObject";
 import { openDB } from "idb";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch, useStore } from "react-redux";
+import { updateJob } from "store/reducers/root";
 import { Api } from "telegram";
-import { IDB_MSG_THRESHOLD } from "../../constants/parameters";
-import JobContext from "../../context/JobContext";
-import { updateJob } from "../../store/reducers/root";
-import { ClientContext } from "../ClientProvider";
-import getAction from "./getAction";
-import { reshapeObject } from "./reshapeObject";
 
 export default function Collector({ children }) {
   const dispatch = useDispatch();

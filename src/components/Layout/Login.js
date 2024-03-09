@@ -16,9 +16,9 @@ import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { apiLogin, setAskLogin } from "store/reducers/root";
 import { Api, TelegramClient } from "telegram";
 import { StringSession } from "telegram/sessions";
-import { apiLogin, setAskLogin } from "../../store/reducers/root";
 
 const stringSession = new StringSession("");
 

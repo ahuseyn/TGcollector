@@ -1,6 +1,6 @@
 import { Button, Card, Flex, Loader, Text } from "@mantine/core";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { cancelJob } from "../../store/reducers/root";
+import { cancelJob } from "store/reducers/root";
 
 export default function ActiveJob() {
   const dispatch = useDispatch();

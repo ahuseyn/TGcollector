@@ -9,10 +9,10 @@ import {
   Text,
 } from "@mantine/core";
 import { IconDownload, IconExclamationCircle, IconList } from "@tabler/icons";
+import ConfirmDelete from "components/ConfirmDelete";
 import dayjs from "dayjs";
+import { downloadFile } from "helpers/downloadFile";
 import { useState } from "react";
-import ConfirmDelete from "../../../components/ConfirmDelete";
-import { downloadFile } from "./helpers/downloadFile";
 import { toast } from "react-hot-toast";
 
 const statusColors = {

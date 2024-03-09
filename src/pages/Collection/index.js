@@ -1,17 +1,17 @@
 import { Box, Card, Divider, Group, Tabs, Text } from "@mantine/core";
 import { IconCloudDownload, IconFolder } from "@tabler/icons";
+import AddChannel from "components/AddChannel";
+import ChannelsList from "components/ChannelsList";
+import ConfirmDelete from "components/ConfirmDelete";
+import EditableText from "components/EditableText";
+import JobsTable from "components/JobsTable";
+import { deleteChannelIDB } from "helpers/deleteChannelIDB";
+import { deleteCollectionIDB } from "helpers/deleteCollectionIDB";
+import { getChannelsIDB } from "helpers/getChannelsIDB";
 import { useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Navigate, useParams } from "react-router-dom";
-import ConfirmDelete from "../../components/ConfirmDelete";
-import EditableText from "../../components/EditableText";
-import { deleteCollection, renameCollection } from "../../store/reducers/root";
-import AddChannel from "./AddChannel";
-import ChannelsList from "./ChannelsList";
-import JobsTable from "./JobsTable";
-import { deleteChannelIDB } from "./helpers/deleteChannelIDB";
-import { deleteCollectionIDB } from "./helpers/deleteCollectionIDB";
-import { getChannelsIDB } from "./helpers/getChannelsIDB";
+import { deleteCollection, renameCollection } from "store/reducers/root";
 
 export default function Collection() {
   const dispatch = useDispatch();

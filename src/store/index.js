@@ -11,7 +11,7 @@ import {
   REHYDRATE,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import reducer from "./reducers/root";
+import reducer from "store/reducers/root";
 
 const persistConfig = {
   key: "root",

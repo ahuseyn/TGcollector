@@ -9,11 +9,11 @@ import {
 } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
 import { IconAlertCircle, IconDots, IconEye, IconEyeOff } from "@tabler/icons";
-import React, { useContext, useState } from "react";
+import { ClientContext } from "components/ClientProvider";
+import { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { apiLogout, setAskLogin } from "store/reducers/root";
 import { Api } from "telegram";
-import { apiLogout, setAskLogin } from "../../store/reducers/root";
-import { ClientContext } from "../ClientProvider";
 
 export default function AccountAction() {
   const dispatch = useDispatch();

@@ -20,7 +20,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export function TableSelection({
-  data,
+  data = [],
   onSelect = () => {},
   onExport = () => {},
   onRemove = () => {},
@@ -35,7 +35,10 @@ export function TableSelection({
     );
 
   // Sort data by subscriber count
-  const sorted = data.sort((a, b) => b.participantsCount - a.participantsCount);
+
+  const sorted = [...data]?.sort(
+    (a, b) => b.participantsCount - a.participantsCount
+  );
 
   const toggleAll = () =>
     setSelection((current) =>

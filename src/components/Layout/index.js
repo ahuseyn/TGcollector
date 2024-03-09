@@ -18,7 +18,7 @@ import { IconBrandGithub, IconMoonStars, IconSun } from "@tabler/icons";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useStore } from "react-redux";
 import { Outlet } from "react-router-dom";
-import { toggleTheme, updateJob } from "../../store/reducers/root";
+import { toggleTheme, updateJob } from "store/reducers/root";
 import AccountAction from "./AccountAction";
 import ActiveJob from "./ActiveJob";
 import Login from "./Login";
@@ -109,7 +109,7 @@ export default function Layout() {
             <AccountAction />
           </Navbar.Section>
           <Text color="dimmed" size={"xs"} mt="md">
-            TG collector 2023 <Code>1.3.4-beta</Code>
+            TG collector 2023 <Code>1.3.5-beta</Code>
           </Text>
           <Text color="dimmed" size={"xs"}>
             Copyright H Aghayev, S Mammadova

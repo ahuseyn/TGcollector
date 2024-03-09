@@ -15,9 +15,9 @@ import {
   IconEyeOff,
   IconFolders,
 } from "@tabler/icons";
+import insertCollection from "helpers/insertCollection";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import insertCollection from "../../helpers/insertCollection";
 
 const features = [
   {
@@ -57,7 +57,12 @@ export default function Banner() {
 
   const items = features.map((feature) => (
     <div key={feature.title}>
-      <ThemeIcon size={44} radius="md" variant="gradient" gradient={{ deg: 0, from: "indigo", to: "blue" }}>
+      <ThemeIcon
+        size={44}
+        radius="md"
+        variant="gradient"
+        gradient={{ deg: 0, from: "indigo", to: "blue" }}
+      >
         <feature.icon size={26} stroke={1.5} />
       </ThemeIcon>
       <Text fz="lg" mt="sm" fw={500}>
@@ -90,7 +95,7 @@ export default function Banner() {
               {"Create your first collection to"}
             </Text>
             <Button
-              variant="gradient" 
+              variant="gradient"
               gradient={{ deg: 0, from: "indigo", to: "blue" }}
               size="md"
               radius="md"

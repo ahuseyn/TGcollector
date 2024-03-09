@@ -1,7 +1,7 @@
 import { Box, ScrollArea, Table, Text } from "@mantine/core";
+import { deleteIDB } from "helpers/deleteIDB";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { deleteJob } from "../../../store/reducers/root";
-import { deleteIDB } from "../helpers/deleteIDB";
+import { deleteJob } from "store/reducers/root";
 import JobItem from "./JobItem";
 
 export default function JobsTable({ collection }) {

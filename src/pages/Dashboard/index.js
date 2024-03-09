@@ -1,6 +1,6 @@
 import { Col, Container, Grid } from "@mantine/core";
 import { IconBug, IconSchool } from "@tabler/icons";
-import HelpCard from "../../components/HelpCard";
+import HelpCard from "components/HelpCard";
 import { About } from "./About";
 import Banner from "./Banner";
 

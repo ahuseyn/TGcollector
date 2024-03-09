@@ -1,15 +1,15 @@
 import { Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { TableSelection } from "components/ChannelTable";
+import CollectDialog from "components/CollectDialog";
+import { collectorDefaults } from "constants/collectorDefaults";
+import JobContext from "context/JobContext";
+import { exportCollection } from "helpers/exportCollection";
 import { nanoid } from "nanoid";
 import { useContext, useState } from "react";
-import { useDispatch } from "react-redux";
-import { collectorDefaults } from "../../constants/collectorDefaults";
-import JobContext from "../../context/JobContext";
-import { insertJob } from "../../store/reducers/root";
-import { TableSelection } from "./ChannelTable";
-import CollectDialog from "./CollectDialog";
 import { toast } from "react-hot-toast";
-import { exportCollection } from "../../helpers/exportCollection";
+import { useDispatch } from "react-redux";
+import { insertJob } from "store/reducers/root";
 
 export default function ChannelsList({ collection, channels, deleteChannel }) {
   const dispatch = useDispatch();

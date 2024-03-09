@@ -1,14 +1,14 @@
 import { ActionIcon, TextInput } from "@mantine/core";
 import { useInputState } from "@mantine/hooks";
 import { IconArrowRight, IconBrandTelegram } from "@tabler/icons";
+import { ClientContext } from "components/ClientProvider";
+import { getChannelsTG } from "helpers/getChannelsTG";
+import { insertChannelsIDB } from "helpers/insertChannelsIDB";
+import { reshapeChannels } from "helpers/reshapeChannels";
 import { useContext } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { ClientContext } from "../../components/ClientProvider";
-import { setAskLogin } from "../../store/reducers/root";
-import { getChannelsTG } from "./helpers/getChannelsTG";
-import { insertChannelsIDB } from "./helpers/insertChannelsIDB";
-import { reshapeChannels } from "./helpers/reshapeChannels";
+import { setAskLogin } from "store/reducers/root";
 
 export default function AddChannel({ collectionId, onInserted = () => {} }) {
   const [channel, setChannel] = useInputState("");
