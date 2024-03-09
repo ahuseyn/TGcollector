@@ -1,10 +1,21 @@
 import { MantineProvider } from "@mantine/core";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Layout from "./components/Layout";
-import Collection from "./pages/Collection";
-import Dashboard from "./pages/Dashboard";
-import { useSelector, shallowEqual } from "react-redux";
-import Terms from "./pages/Terms";
+import Layout from "components/Layout";
+import Collection from "pages/Collection";
+import Dashboard from "pages/Dashboard";
+import Terms from "pages/Terms";
+import { shallowEqual, useSelector } from "react-redux";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+
+const router = createBrowserRouter([
+  {
+    Component: Layout,
+    children: [
+      { path: "/", Component: Dashboard },
+      { path: "collection/:id/", Component: Collection },
+      { path: "terms", Component: Terms },
+    ],
+  },
+]);
 
 export default function Navigation() {
   const theme = useSelector((state) => state.theme, shallowEqual);
@@ -19,15 +30,7 @@ export default function Navigation() {
       withGlobalStyles
       withNormalizeCSS
     >
-      <BrowserRouter>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="collection/:id/" element={<Collection />} />
-            <Route path="terms" element={<Terms />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <RouterProvider router={router} />;
     </MantineProvider>
   );
 }
