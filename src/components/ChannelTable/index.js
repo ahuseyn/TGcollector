@@ -21,6 +21,7 @@ const useStyles = createStyles((theme) => ({
 
 export function TableSelection({
   data = [],
+  isFolder,
   onSelect = () => {},
   onExport = () => {},
   onRemove = () => {},
@@ -59,7 +60,7 @@ export function TableSelection({
             transitionDuration={0}
           />
         </Box>
-        <ChannelItem channel={item} onRemove={onRemove} />
+        <ChannelItem channel={item} onRemove={onRemove} isFolder={isFolder} />
       </tr>
     );
   });
@@ -110,7 +111,7 @@ export function TableSelection({
               </th>
               <th>Channel</th>
 
-              <th>Description</th>
+              <th>{isFolder ? "Last message" : "Description"}</th>
               <th>Subscribers</th>
               <th>Created</th>
               <th></th>

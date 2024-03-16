@@ -1,8 +1,12 @@
-import { ActionIcon, Box, Group, Text } from "@mantine/core";
+import { ActionIcon, Box, Group, Spoiler, Text } from "@mantine/core";
 import { IconTrash } from "@tabler/icons";
 import dayjs from "dayjs";
 
-export default function ChannelItem({ channel, onRemove = () => {} }) {
+export default function ChannelItem({
+  channel,
+  onRemove = () => {},
+  isFolder = false,
+}) {
   return (
     <>
       <td>
@@ -31,6 +35,18 @@ export default function ChannelItem({ channel, onRemove = () => {} }) {
         <Text fz="xs" c="dimmed">
           {channel.about}
         </Text>
+
+        {channel.lastMessage && (
+          <Spoiler
+            fz="xs"
+            c="dimmed"
+            maxHeight={38}
+            showLabel="Show more"
+            hideLabel="Hide"
+          >
+            {channel.lastMessage}
+          </Spoiler>
+        )}
       </td>
 
       <Box component="td" w={140}>
@@ -45,11 +61,13 @@ export default function ChannelItem({ channel, onRemove = () => {} }) {
         </Text>
       </Box>
 
-      <Box component="td" w={28}>
-        <ActionIcon onClick={() => onRemove(channel.id)}>
-          <IconTrash size="1rem" stroke={1.5} color="red" />
-        </ActionIcon>
-      </Box>
+      {!isFolder && (
+        <Box component="td" w={28}>
+          <ActionIcon onClick={() => onRemove(channel.id)}>
+            <IconTrash size="1rem" stroke={1.5} color="red" />
+          </ActionIcon>
+        </Box>
+      )}
     </>
   );
 }

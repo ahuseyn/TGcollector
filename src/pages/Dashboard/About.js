@@ -1,8 +1,32 @@
-import { Anchor, Box, Text, Title } from "@mantine/core";
+import { Anchor, Box, Group, Text, ThemeIcon, Title } from "@mantine/core";
+import { IconStar } from "@tabler/icons";
 
 export function About() {
   return (
     <Box maw={720}>
+      <Group mb={"xl"}>
+        <ThemeIcon
+          size={"lg"}
+          variant="gradient"
+          gradient={{ deg: 0, from: "red", to: "orange" }}
+        >
+          <IconStar />
+        </ThemeIcon>
+        <Title size={"h3"}>New feature: Telegram folders</Title>
+        <Text>
+          Now you can see your Telegram folders after you log in, on the left
+          side, just above the collections.{" "}
+          <u>
+            Telegram Folders are the feature inside Telegram app, allowing you
+            to organize your chats.
+          </u>{" "}
+          If you enter a folder, you can see the channels inside the folder that
+          has usernames. You can select the channels and collect messages as you
+          do in collections. But for updating the folder and adding new
+          channels, you should either use Telegram app or Telegram Web.
+        </Text>
+      </Group>
+
       <Title size={"h3"} mb={"lg"}>
         More about TG collector
       </Title>

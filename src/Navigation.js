@@ -2,6 +2,7 @@ import { MantineProvider } from "@mantine/core";
 import Layout from "components/Layout";
 import Collection from "pages/Collection";
 import Dashboard from "pages/Dashboard";
+import { Folder } from "pages/Folder";
 import Terms from "pages/Terms";
 import { shallowEqual, useSelector } from "react-redux";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
@@ -12,6 +13,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", Component: Dashboard },
       { path: "collection/:id/", Component: Collection },
+      { path: "folder/:id/", Component: Folder },
       { path: "terms", Component: Terms },
     ],
   },

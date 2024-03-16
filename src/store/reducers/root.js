@@ -12,6 +12,7 @@ const collectionSlice = createSlice({
   name: "root",
   initialState: {
     collections: {},
+    folders: {},
     jobs: {},
     user: defaultUser,
     auth: {
@@ -78,6 +79,10 @@ const collectionSlice = createSlice({
       const { colId, chnId } = action.payload;
       delete state.collections[colId].channels[chnId];
     },
+    insertFolders: (state, action) => ({
+      ...state,
+      folders: action.payload,
+    }),
   },
 });
 
@@ -89,6 +94,7 @@ export const {
   deleteCollection,
   insertChannel,
   deleteChannel,
+  insertFolders,
   insertJob,
   updateJob,
   apiLogin,

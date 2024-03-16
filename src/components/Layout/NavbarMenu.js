@@ -1,11 +1,13 @@
 import { Divider, NavLink, ThemeIcon } from "@mantine/core";
 import { IconFolder, IconHome, IconPlus } from "@tabler/icons";
+import Folders from "components/Folders";
+import insertCollection from "helpers/insertCollection";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import insertCollection from "../../helpers/insertCollection";
 
 export default function NavbarMenu() {
   const { pathname } = useLocation();
+  const user = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -41,6 +43,13 @@ export default function NavbarMenu() {
         defaultOpened
         onClick={_insertCollection}
       />
+
+      {user.logged && (
+        <>
+          <Divider label="Telegram folders" p={10} />
+          <Folders />
+        </>
+      )}
 
       <Divider label="Collections" p={10} />
 

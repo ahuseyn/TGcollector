@@ -11,7 +11,12 @@ import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { insertJob } from "store/reducers/root";
 
-export default function ChannelsList({ collection, channels, deleteChannel }) {
+export default function ChannelsList({
+  isFolder,
+  collection,
+  channels,
+  deleteChannel,
+}) {
   const dispatch = useDispatch();
   const [modal, { open, close }] = useDisclosure(false);
   const [state, setState] = useState(collectorDefaults);
@@ -59,14 +64,16 @@ export default function ChannelsList({ collection, channels, deleteChannel }) {
       {channels.length === 0 ? (
         <>
           <Text size="sm" c="dimmed" mt={"lg"}>
-            No channel added yet. Login to your Telegram account and add some
-            new channels above.
+            {isFolder
+              ? "No channel added yet. Go to your Telegram app or Telegram Web and add some channels."
+              : "No channel added yet. Login to your Telegram account and add some new channels above."}
           </Text>
         </>
       ) : (
         <>
           {
             <TableSelection
+              isFolder={isFolder}
               data={channels}
               onSelect={onSelect}
               onExport={onExport}

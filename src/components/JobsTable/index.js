@@ -15,8 +15,8 @@ export default function JobsTable({ collection }) {
   if (jobArr?.length === 0) {
     return (
       <Text size="sm" c="dimmed" mt={"lg"}>
-        No message collected yet. First add channel to the collection, then
-        collect the messages from those channels.
+        No message collected yet. First switch to channels tab. Then select
+        channels you want to scrape then click "Collect messages".
       </Text>
     );
   }

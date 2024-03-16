@@ -8,10 +8,16 @@ export default function EditableText({
   withIcon = false,
   size = "sm",
   onChange = () => {},
+  onSubmit = () => {},
   textProps = {},
 }) {
   const [edit, setEdit] = useState(false);
   const ref = useClickOutside(() => setEdit(false));
+
+  const onFormSubmit = () => {
+    setEdit(false);
+    onSubmit();
+  };
 
   return (
     <Group spacing="xs">
@@ -25,7 +31,7 @@ export default function EditableText({
         </ActionIcon>
       ) : null}
       {edit ? (
-        <form onSubmit={() => setEdit(false)}>
+        <form onSubmit={onFormSubmit}>
           <TextInput
             ref={ref}
             autoFocus
