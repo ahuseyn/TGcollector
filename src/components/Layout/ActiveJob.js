@@ -1,6 +1,6 @@
 import { Button, Card, Flex, Loader, Text } from "@mantine/core";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { cancelJob } from "store/reducers/root";
+import { stopJob } from "store/reducers/root";
 
 export default function ActiveJob() {
   const dispatch = useDispatch();
@@ -17,8 +17,8 @@ export default function ActiveJob() {
   const totalCurrentMsg = data?.current?.messageCount;
   const totalCollectedMsg = data?.current?.collectedCount;
 
-  const onCancel = () => {
-    dispatch(cancelJob(data.id));
+  const onStop = (status) => () => {
+    dispatch(stopJob({ id: data.id, status }));
   };
 
   return (
@@ -43,7 +43,7 @@ export default function ActiveJob() {
             color="dimmed"
           >{`Collected ${totalCollectedMsg} out of ${totalCurrentMsg} message`}</Text>
 
-          <Button size="xs" color="red" mt={"xs"} onClick={onCancel}>
+          <Button size="xs" color="red" mt={"xs"} onClick={onStop("canceled")}>
             Cancel
           </Button>
         </div>

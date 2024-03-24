@@ -30,20 +30,28 @@ const collectionSlice = createSlice({
       Object.assign(state.collections, action.payload);
     },
     insertJob: (state, action) => {
-      Object.assign(state.jobs, action.payload);
+      Object.assign(state.jobs, { [action.payload.id]: action.payload });
+    },
+    resumeJob: (state, action) => {
+      const { id } = action.payload;
+
+      state.jobs[id] = {
+        ...state.jobs[id],
+        status: "progress",
+      };
     },
     updateJob: (state, action) => {
       const { id, data } = action.payload;
 
       state.jobs[id] = { ...state.jobs[id], ...data };
     },
-    cancelJob: (state, action) => {
-      const id = action.payload;
+    stopJob: (state, action) => {
+      const { id, status } = action.payload;
 
       state.jobs[id] = {
         ...state.jobs[id],
-        canceled: true,
-        status: "canceled",
+        canceled: status === "canceled",
+        status, // paused, canceled or error
       };
     },
     initClient: (state, action) => {
@@ -100,10 +108,11 @@ export const {
   apiLogin,
   setAskLogin,
   apiLogout,
-  cancelJob,
+  stopJob,
   initClient,
   toggleTheme,
   deleteJob,
+  resumeJob,
 } = actions;
 
 export default reducer;

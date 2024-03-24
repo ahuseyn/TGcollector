@@ -1,7 +1,6 @@
 import { Analytics } from "@vercel/analytics/react";
 import Navigation from "Navigation";
 import ClientProvider from "components/ClientProvider";
-import Collector from "components/Collector";
 import ReactDOM from "react-dom/client";
 import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
@@ -13,11 +12,9 @@ root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <ClientProvider>
-        <Collector>
-          <Toaster />
-          <Navigation />
-          <Analytics />
-        </Collector>
+        <Toaster />
+        <Navigation />
+        <Analytics />
       </ClientProvider>
     </PersistGate>
   </Provider>

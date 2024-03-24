@@ -12,7 +12,7 @@ import { getChannelsIDB } from "helpers/getChannelsIDB";
 import { getChannelsTG } from "helpers/getChannelsTG";
 import { insertChannelsIDB } from "helpers/insertChannelsIDB";
 import { reshapeChannels } from "helpers/reshapeChannels";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Navigate, useParams } from "react-router-dom";
@@ -103,7 +103,7 @@ export default function Collection() {
   const refreshChannels = () => getChannelsIDB(collection.id, setChannels);
 
   return (
-    <>
+    <React.Fragment key={id}>
       <Box>
         <Box
           sx={{
@@ -166,6 +166,6 @@ export default function Collection() {
           </Card>
         </Tabs.Panel>
       </Tabs>
-    </>
+    </React.Fragment>
   );
 }

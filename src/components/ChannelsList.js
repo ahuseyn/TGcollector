@@ -3,10 +3,9 @@ import { useDisclosure } from "@mantine/hooks";
 import { TableSelection } from "components/ChannelTable";
 import CollectDialog from "components/CollectDialog";
 import { collectorDefaults } from "constants/collectorDefaults";
-import JobContext from "context/JobContext";
 import { exportCollection } from "helpers/exportCollection";
 import { nanoid } from "nanoid";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { insertJob } from "store/reducers/root";
@@ -20,8 +19,6 @@ export default function ChannelsList({
   const dispatch = useDispatch();
   const [modal, { open, close }] = useDisclosure(false);
   const [state, setState] = useState(collectorDefaults);
-
-  const { collect } = useContext(JobContext);
 
   const onSelect = (selection) => {
     setState({ ...state, channels: selection });
@@ -43,18 +40,15 @@ export default function ChannelsList({
 
     dispatch(
       insertJob({
-        [jobTitle]: {
-          name: state.name,
-          id: jobTitle,
-          started: execTime,
-          params: state,
-        },
+        name: state.name,
+        id: jobTitle,
+        started: execTime,
+        params: state,
       })
     );
 
     close();
     setState(collectorDefaults);
-    collect(state, 0, jobTitle);
 
     toast.success("Message collection started", { id: "info-collect" });
   };

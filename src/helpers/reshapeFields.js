@@ -41,7 +41,7 @@ const getReactions = (_reactions) => {
   return "";
 };
 
-export const reshapeObject = (item, fields, chats, currentChannel) => {
+export const reshapeFields = (item, fields, chats, currentChannel) => {
   let object = {};
 
   try {
