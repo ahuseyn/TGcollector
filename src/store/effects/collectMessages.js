@@ -5,9 +5,11 @@ import { openDB } from "idb";
 import toast from "react-hot-toast";
 import { stopJob, updateJob } from "store/reducers/root";
 
-export async function collectMessages(action, listener) {
+export async function collectMessages(
+  action,
+  { dispatch, getState, fork, condition }
+) {
   // Extract required params
-  const { dispatch, getState, delay, fork, condition } = listener;
   const { params, id: jobTitle, current = {} } = action.payload;
   const { channels, fields, limit } = params;
 
@@ -20,7 +22,7 @@ export async function collectMessages(action, listener) {
   let totalMsgCount = current.totalMsgCount || 0;
 
   // Create cancellable child task to collect messages
-  const { cancel: cancelCollector } = fork(async () => {
+  const { cancel: cancelCollector } = fork(async ({ delay, signal }) => {
     for (let i = current.channelIndex || 0; i < channels.length; i++) {
       const channel = channels[i];
 
@@ -32,6 +34,9 @@ export async function collectMessages(action, listener) {
           // Get history from TG
           const res = await getHistory(client, channel, limit, offset);
           const currMsgCount = res.messages.length;
+
+          // If task cancelled exit
+          if (signal.aborted) return;
 
           if (res?.messages) {
             // Reshape message object

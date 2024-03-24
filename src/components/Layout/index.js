@@ -109,7 +109,7 @@ export default function Layout() {
             <AccountAction />
           </Navbar.Section>
           <Text color="dimmed" size={"xs"} mt="md">
-            TG collector 2024 <Code>1.6.0-beta</Code>
+            TG collector 2024 <Code>1.6.1-beta</Code>
           </Text>
           <Text color="dimmed" size={"xs"}>
             Copyright H Aghayev, S Mammadova
