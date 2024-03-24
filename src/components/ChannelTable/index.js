@@ -114,7 +114,7 @@ export function TableSelection({
               <th>{isFolder ? "Last message" : "Description"}</th>
               <th>Subscribers</th>
               <th>Created</th>
-              <th></th>
+              {!isFolder && <th></th>}
             </tr>
           </thead>
           <tbody>{rows}</tbody>
