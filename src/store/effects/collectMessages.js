@@ -60,7 +60,7 @@ export async function collectMessages(
             offset = offset + limit <= res.count ? offset + limit : res.count;
 
             // If message count less than limit, stop the loop
-            if (currMsgCount < Number(limit)) chComplete = true;
+            if (currMsgCount === 0) chComplete = true;
 
             // Increase total message count
             totalMsgCount += currMsgCount;
