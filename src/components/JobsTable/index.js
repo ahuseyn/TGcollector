@@ -1,7 +1,7 @@
 import { Box, ScrollArea, Table, Text } from "@mantine/core";
 import { deleteIDB } from "helpers/deleteIDB";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { deleteJob } from "store/reducers/root";
+import { deleteJob, onResumeJob } from "store/reducers/root";
 import JobItem from "./JobItem";
 
 export default function JobsTable({ collection }) {
@@ -26,6 +26,17 @@ export default function JobsTable({ collection }) {
     deleteIDB(id);
   };
 
+  const onResume = (data) => {
+    dispatch(
+      onResumeJob({
+        id: data.id,
+        name: data.name,
+        params: data.params,
+        current: data.current,
+      })
+    );
+  };
+
   return (
     <>
       <Box display={"flex"} mb={15}></Box>
@@ -45,7 +56,11 @@ export default function JobsTable({ collection }) {
           <tbody>
             {jobArr.reverse().map((item) => (
               <tr key={item.id}>
-                <JobItem data={item} onRemove={() => removeJob(item.id)} />
+                <JobItem
+                  data={item}
+                  onRemove={() => removeJob(item.id)}
+                  onResume={onResume}
+                />
               </tr>
             ))}
           </tbody>

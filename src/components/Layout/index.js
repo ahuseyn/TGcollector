@@ -15,10 +15,10 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { IconBrandGithub, IconMoonStars, IconSun } from "@tabler/icons";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useStore } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
-import { toggleTheme, updateJob } from "store/reducers/root";
+import { toggleTheme } from "store/reducers/root";
 import AccountAction from "./AccountAction";
 import ActiveJob from "./ActiveJob";
 import Login from "./Login";
@@ -61,31 +61,12 @@ const useStyles = createStyles((theme) => ({
 
 export default function Layout() {
   const theme = useMantineTheme();
-  const store = useStore();
   const { classes } = useStyles();
   const dispatch = useDispatch();
 
   const [opened, setOpened] = useState(false);
 
   const onToggleTheme = () => dispatch(toggleTheme());
-
-  useEffect(() => {
-    const jobs = store.getState().jobs;
-    const activeJob = Object.values(jobs).find((j) => j.status === "progress");
-
-    if (activeJob) {
-      dispatch(
-        updateJob({
-          id: activeJob.id,
-          data: {
-            status: "error",
-            error:
-              "Process interrupted. Possible page reload, connection or power outage.",
-          },
-        })
-      );
-    }
-  }, []);
 
   return (
     <AppShell
@@ -109,7 +90,7 @@ export default function Layout() {
             <AccountAction />
           </Navbar.Section>
           <Text color="dimmed" size={"xs"} mt="md">
-            TG collector 2024 <Code>1.6.4-beta</Code>
+            TG collector 2024 <Code>1.7.0-beta</Code>
           </Text>
           <Text color="dimmed" size={"xs"}>
             Copyright H Aghayev, S Mammadova

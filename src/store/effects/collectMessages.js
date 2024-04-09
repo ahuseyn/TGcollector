@@ -26,8 +26,12 @@ export async function collectMessages(
     for (let i = current.channelIndex || 0; i < channels.length; i++) {
       const channel = channels[i];
 
-      let offset = current.offset || 0; // Offset for current channel
-      let chComplete = current.chComplete || false; // Is current channel fully collected
+      let offset =
+        current.channelIndex === i && current.offset ? current.offset : 0; // Offset for current channel
+      let chComplete =
+        current.channelIndex === i && current.chComplete
+          ? current.chComplete
+          : false; // Is current channel fully collected
 
       while (!chComplete) {
         try {
@@ -98,7 +102,7 @@ export async function collectMessages(
             stopJob({
               id: jobTitle,
               status: "error",
-              // TODO add error message
+              error: String(err),
             })
           );
 

@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { concurrencyError } from "helpers/concurrencyError";
+import { getActiveJob } from "helpers/getActiveJob";
 
 const defaultUser = {
   remember: false,
@@ -38,6 +40,7 @@ const collectionSlice = createSlice({
       state.jobs[id] = {
         ...state.jobs[id],
         status: "progress",
+        error: undefined,
       };
     },
     updateJob: (state, action) => {
@@ -46,12 +49,13 @@ const collectionSlice = createSlice({
       state.jobs[id] = { ...state.jobs[id], ...data };
     },
     stopJob: (state, action) => {
-      const { id, status } = action.payload;
+      const { id, status, error } = action.payload;
 
       state.jobs[id] = {
         ...state.jobs[id],
         canceled: status === "canceled",
         status, // paused, canceled or error
+        error,
       };
     },
     initClient: (state, action) => {
@@ -95,6 +99,17 @@ const collectionSlice = createSlice({
 });
 
 const { actions, reducer } = collectionSlice;
+
+// Check jobs, resume job if none is active
+export const onResumeJob = (payload) => (dispatch, getState) => {
+  const jobs = getState().jobs;
+  const activeJob = getActiveJob(jobs);
+
+  // Resume only active(paused) job
+  if (activeJob && activeJob.id !== payload.id) return concurrencyError();
+
+  dispatch(resumeJob(payload));
+};
 
 export const {
   insertCollection,

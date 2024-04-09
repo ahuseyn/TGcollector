@@ -2,11 +2,13 @@ import {
   ActionIcon,
   Badge,
   Box,
+  Button,
   Flex,
   Group,
   Popover,
   Select,
   Text,
+  Tooltip,
 } from "@mantine/core";
 import { IconDownload, IconExclamationCircle, IconList } from "@tabler/icons";
 import ConfirmDelete from "components/ConfirmDelete";
@@ -21,7 +23,11 @@ const statusColors = {
   success: "green",
 };
 
-export default function JobItem({ data, onRemove = () => {} }) {
+export default function JobItem({
+  data,
+  onRemove = () => {},
+  onResume = () => {},
+}) {
   const [format, setFormat] = useState("");
 
   const onDownload = () => {
@@ -41,9 +47,20 @@ export default function JobItem({ data, onRemove = () => {} }) {
 
       <td>
         <Flex align="center">
-          <Badge size="sm" color={statusColors[data.status]} mr={5}>
+          <Badge size="sm" color={statusColors[data.status] || "indigo"} mr={5}>
             {data.status}
           </Badge>
+
+          {data.status === "error" && (
+            <Button
+              variant="subtle"
+              size="xs"
+              mr={5}
+              onClick={() => onResume(data)}
+            >
+              Try again
+            </Button>
+          )}
 
           {data.error ? (
             <Popover position="bottom-end" withArrow shadow="md">
@@ -87,8 +104,8 @@ export default function JobItem({ data, onRemove = () => {} }) {
       </Text>
 
       <Box component="td" w={220}>
-        {data.status === "success" ? (
-          <Group>
+        {data.status !== "progress" ? (
+          <Group spacing={"xs"}>
             <Select
               w={120}
               placeholder="Format"
@@ -101,9 +118,19 @@ export default function JobItem({ data, onRemove = () => {} }) {
               value={format}
               onChange={setFormat}
             />
-            <ActionIcon variant="filled" color="green" onClick={onDownload}>
-              <IconDownload size="1rem" stroke={1.5} />
-            </ActionIcon>
+            <Tooltip
+              label="Attention! This dataset is not fully scraped. It may contain partial data."
+              hidden={data.status === "success"}
+              multiline
+            >
+              <ActionIcon
+                variant="filled"
+                color={data.status === "success" ? "green" : "orange"}
+                onClick={onDownload}
+              >
+                <IconDownload size="1rem" stroke={1.5} />
+              </ActionIcon>
+            </Tooltip>
           </Group>
         ) : (
           <Text fz="xs" c="dimmed">

@@ -10,7 +10,8 @@ import {
   Tooltip,
 } from "@mantine/core";
 import { IconAlertCircle } from "@tabler/icons";
-import { toast } from "react-hot-toast";
+import { concurrencyError } from "helpers/concurrencyError";
+import { getActiveJob } from "helpers/getActiveJob";
 import { shallowEqual, useSelector } from "react-redux";
 import CollectionFields from "./ColectionFields";
 
@@ -22,19 +23,12 @@ export default function CollectDialog({
   onCollect = () => {},
 }) {
   const jobs = useSelector((state) => state.jobs, shallowEqual);
-  const activeJob = Object.values(jobs).find((j) => j.status === "progress");
+  const activeJob = getActiveJob(jobs);
 
   const collectionAttempt = (e) => {
     e.preventDefault();
 
-    if (activeJob) {
-      return toast.error(
-        "Only one concurrent job is possible at the time. You can cancel the other job to start a new one.",
-        {
-          id: "error-concurrency",
-        }
-      );
-    }
+    if (activeJob) return concurrencyError();
 
     onCollect();
   };

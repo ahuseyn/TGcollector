@@ -17,6 +17,7 @@ import {
 import storage from "redux-persist/lib/storage";
 import reducer, { insertJob, resumeJob } from "store/reducers/root";
 import { collectMessages } from "./effects/collectMessages";
+import { postRehydrate } from "./effects/postRehydrate";
 
 // Configure and initiate Redux persist
 const persistConfig = {
@@ -48,6 +49,12 @@ const store = configureStore({
 listenerMiddleware.startListening({
   matcher: isAnyOf(insertJob, resumeJob),
   effect: collectMessages,
+});
+
+// Listen for persist/REHYDRATE action and do postRehydrate actions
+listenerMiddleware.startListening({
+  type: "persist/REHYDRATE",
+  effect: postRehydrate,
 });
 
 export const persistor = persistStore(store);

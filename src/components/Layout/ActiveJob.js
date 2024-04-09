@@ -1,11 +1,23 @@
-import { Button, Card, Flex, Loader, Text } from "@mantine/core";
+import {
+  ActionIcon,
+  Button,
+  Card,
+  Flex,
+  Group,
+  Loader,
+  Text,
+  ThemeIcon,
+  Tooltip,
+} from "@mantine/core";
+import { IconPlayerPause, IconPlayerPlay } from "@tabler/icons";
+import { getActiveJob } from "helpers/getActiveJob";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { stopJob } from "store/reducers/root";
+import { onResumeJob, stopJob } from "store/reducers/root";
 
 export default function ActiveJob() {
   const dispatch = useDispatch();
   const jobs = useSelector((state) => state.jobs, shallowEqual);
-  const data = Object.values(jobs).find((j) => j.status === "progress");
+  const data = getActiveJob(jobs);
 
   if (!data) {
     return null;
@@ -17,14 +29,39 @@ export default function ActiveJob() {
   const totalCurrentMsg = data?.current?.messageCount;
   const totalCollectedMsg = data?.current?.collectedCount;
 
+  const isPaused = data.status === "paused";
+
   const onStop = (status) => () => {
     dispatch(stopJob({ id: data.id, status }));
+  };
+
+  const onResume = () => {
+    dispatch(
+      onResumeJob({
+        id: data.id,
+        name: data.name,
+        params: data.params,
+        current: data.current,
+      })
+    );
   };
 
   return (
     <>
       <Card shadow="xs" p={10} withBorder component={Flex}>
-        <Loader size={"xs"} mr={"sm"} mt={3} />
+        {isPaused ? (
+          <ThemeIcon
+            size={"xs"}
+            mt={3}
+            mr={"sm"}
+            variant="light"
+            color="indigo"
+          >
+            <IconPlayerPause strokeWidth={1.5} />
+          </ThemeIcon>
+        ) : (
+          <Loader size={"xs"} mr={"sm"} mt={3} />
+        )}
         <div>
           <Text fz="sm" fw="bold">
             {`${data.name}`}
@@ -43,9 +80,32 @@ export default function ActiveJob() {
             color="dimmed"
           >{`Collected ${totalCollectedMsg} out of ${totalCurrentMsg} message`}</Text>
 
-          <Button size="xs" color="red" mt={"xs"} onClick={onStop("canceled")}>
-            Cancel
-          </Button>
+          <Group spacing="xs" mt={"xs"}>
+            <Button size="xs" color="red" onClick={onStop("canceled")}>
+              Cancel
+            </Button>
+
+            <Tooltip
+              label={
+                isPaused
+                  ? "Resume the task"
+                  : "Pause the task to continue later"
+              }
+            >
+              <ActionIcon
+                variant="filled"
+                size="md"
+                color="indigo"
+                onClick={isPaused ? onResume : onStop("paused")}
+              >
+                {isPaused ? (
+                  <IconPlayerPlay size={20} strokeWidth={1.5} />
+                ) : (
+                  <IconPlayerPause size={20} strokeWidth={1.5} />
+                )}
+              </ActionIcon>
+            </Tooltip>
+          </Group>
         </div>
       </Card>
     </>
