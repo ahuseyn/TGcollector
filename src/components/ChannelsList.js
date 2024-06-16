@@ -31,7 +31,7 @@ export default function ChannelsList({
       selection.includes(item.username)
     );
 
-    exportCollection(selected, name);
+    exportCollection(selected, name, isFolder);
   };
 
   const onCollect = () => {
