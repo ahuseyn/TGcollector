@@ -11,7 +11,8 @@ export default function JobsTable({ collection }) {
   const jobArr =
     Object.values(jobs).filter(
       (item) =>
-        item.id.substr(0, item.id.indexOf("_")) === String(collection.id)
+        item.id.substr(0, item.id.indexOf(item.started) - 1) ===
+        String(collection.id)
     ) || [];
 
   if (jobArr?.length === 0) {
