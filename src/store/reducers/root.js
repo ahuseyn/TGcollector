@@ -58,9 +58,6 @@ const collectionSlice = createSlice({
         error,
       };
     },
-    initClient: (state, action) => {
-      state.client = action.payload;
-    },
     apiLogin: (state, action) => {
       state.user = action.payload;
     },
@@ -124,7 +121,6 @@ export const {
   setAskLogin,
   apiLogout,
   stopJob,
-  initClient,
   toggleTheme,
   deleteJob,
   resumeJob,

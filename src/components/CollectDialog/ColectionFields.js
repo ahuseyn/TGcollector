@@ -1,13 +1,34 @@
-import { MultiSelect, Text } from "@mantine/core";
+import { Button, MultiSelect, Text } from "@mantine/core";
 import { messageFields } from "constants/messageFields";
 import { forwardRef } from "react";
 
 export default function CollectionFields({ data, onChange, ...rest }) {
+  // Select all message fields
+  const selectAll = () => {
+    const allFields = Object.values(messageFields).map((field) => field.value);
+    onChange(allFields);
+  };
+
   return (
     <MultiSelect
       data={messageFields}
       itemComponent={SelectItem}
-      label="Add/remove message fields to save"
+      labelProps={{
+        style: {
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        },
+      }}
+      justify="between"
+      label={
+        <>
+          <span>Add/remove message fields to save</span>
+          <Button variant="transparent" onClick={selectAll} p={0}>
+            Select all
+          </Button>
+        </>
+      }
       placeholder="No fields selected"
       value={data}
       searchable
