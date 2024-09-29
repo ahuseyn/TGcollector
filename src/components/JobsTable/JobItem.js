@@ -122,6 +122,9 @@ export default function JobItem({
               label="Attention! This dataset is not fully scraped. It may contain partial data."
               hidden={data.status === "success"}
               multiline
+              width={240}
+              position="left"
+              withArrow
             >
               <ActionIcon
                 variant="filled"

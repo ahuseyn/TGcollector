@@ -21,7 +21,7 @@ export default function Folders() {
         new Api.messages.GetDialogFilters({})
       ); // Get folders of the logged user
 
-      const foldersFiltered = foldersRaw.filter(
+      const foldersFiltered = foldersRaw?.filters?.filter(
         (folder) => folder.className === "DialogFilter"
       ); // Keep only correct folders
 
