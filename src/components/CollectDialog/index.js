@@ -10,9 +10,6 @@ import {
   Tooltip,
 } from "@mantine/core";
 import { IconAlertCircle } from "@tabler/icons";
-import { concurrencyError } from "helpers/concurrencyError";
-import { getActiveJob } from "helpers/getActiveJob";
-import { shallowEqual, useSelector } from "react-redux";
 import CollectionFields from "./ColectionFields";
 
 export default function CollectDialog({
@@ -22,13 +19,8 @@ export default function CollectDialog({
   onClose = () => {},
   onCollect = () => {},
 }) {
-  const jobs = useSelector((state) => state.jobs, shallowEqual);
-  const activeJob = getActiveJob(jobs);
-
   const collectionAttempt = (e) => {
     e.preventDefault();
-
-    if (activeJob) return concurrencyError();
 
     onCollect();
   };
