@@ -5,10 +5,9 @@ import CollectDialog from "components/CollectDialog";
 import { collectorDefaults } from "constants/collectorDefaults";
 import { exportCollection } from "helpers/exportCollection";
 import { nanoid } from "nanoid";
-import { useState } from "react";
-import { toast } from "react-hot-toast";
+import { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
-import { insertJob } from "store/reducers/root";
+import { ClientContext } from "./ClientProvider";
 
 export default function ChannelsList({
   isFolder,
@@ -17,6 +16,7 @@ export default function ChannelsList({
   deleteChannel,
 }) {
   const dispatch = useDispatch();
+  const client = useContext(ClientContext);
   const [modal, { open, close }] = useDisclosure(false);
   const [state, setState] = useState(collectorDefaults);
 
@@ -38,19 +38,21 @@ export default function ChannelsList({
     const execTime = new Date().toISOString();
     const jobTitle = `${collection.id}_${execTime}_${nanoid(4)}`;
 
-    dispatch(
-      insertJob({
+    dispatch({
+      type: "root/insertJob",
+      payload: {
         name: state.name,
         id: jobTitle,
         started: execTime,
         params: state,
-      })
-    );
+      },
+      meta: {
+        client: client.current,
+      },
+    });
 
     close();
     setState(collectorDefaults);
-
-    toast.success("Message collection started", { id: "info-collect" });
   };
 
   return (

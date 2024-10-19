@@ -28,7 +28,7 @@ export default function AccountAction() {
 
     setLoading(true);
 
-    await client.invoke(new Api.auth.LogOut({}));
+    await client.current.invoke(new Api.auth.LogOut({}));
 
     dispatch(apiLogout());
     setLoading(false);

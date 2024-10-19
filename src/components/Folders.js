@@ -17,7 +17,7 @@ export default function Folders() {
 
   const getFolder = useCallback(async () => {
     try {
-      const foldersRaw = await client?.invoke(
+      const foldersRaw = await client.current?.invoke(
         new Api.messages.GetDialogFilters({})
       ); // Get folders of the logged user
 
@@ -25,7 +25,7 @@ export default function Folders() {
         (folder) => folder.className === "DialogFilter"
       ); // Keep only correct folders
 
-      const dialogs = await client?.getDialogs();
+      const dialogs = await client.current?.getDialogs();
 
       const foldersReady = foldersFiltered.reduce(foldersReducer(dialogs), {}); // Convert folders into object with channels inside
 
@@ -36,7 +36,7 @@ export default function Folders() {
   }, [client]);
 
   useEffect(() => {
-    if (user.logged && client) {
+    if (user.logged && client.current) {
       getFolder();
     }
   }, [client, user, getFolder]);

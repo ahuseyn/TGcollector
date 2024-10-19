@@ -17,7 +17,7 @@ import {
 import storage from "redux-persist/lib/storage";
 import reducer, { insertJob, resumeJob } from "store/reducers/root";
 import { collectMessages } from "./effects/collectMessages";
-import { postRehydrate } from "./effects/postRehydrate";
+import { jobConcurrencyCheck } from "./jobConcurrencyCheck";
 
 // Configure and initiate Redux persist
 const persistConfig = {
@@ -35,10 +35,12 @@ const listenerMiddleware = createListenerMiddleware();
 const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) => [
+    jobConcurrencyCheck,
     listenerMiddleware.middleware,
     ...getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        ignoredActionPaths: ["meta.client"],
       },
     }),
     // logger,
@@ -49,12 +51,6 @@ const store = configureStore({
 listenerMiddleware.startListening({
   matcher: isAnyOf(insertJob, resumeJob),
   effect: collectMessages,
-});
-
-// Listen for persist/REHYDRATE action and do postRehydrate actions
-listenerMiddleware.startListening({
-  type: "persist/REHYDRATE",
-  effect: postRehydrate,
 });
 
 export const persistor = persistStore(store);

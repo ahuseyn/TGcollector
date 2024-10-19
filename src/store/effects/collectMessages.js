@@ -1,25 +1,20 @@
-import { getClient } from "client/getClient";
 import { getHistory } from "helpers/getHistory";
 import { reshapeMessages } from "helpers/reshapeMessages";
 import { openDB } from "idb";
 import toast from "react-hot-toast";
 import { stopJob, updateJob } from "store/reducers/root";
 
-export async function collectMessages(
-  action,
-  { dispatch, getState, fork, condition }
-) {
+export async function collectMessages(action, { dispatch, fork, condition }) {
   // Extract required params
+  const client = action.meta.client || {};
   const { params, id: jobTitle, current = {} } = action.payload;
   const { channels, fields, limit } = params;
 
   const interval = Number(params.interval * 1000);
 
-  // Get state and initiate client
-  const state = getState();
-  const client = await getClient(state.user);
-
   let totalMsgCount = current.totalMsgCount || 0;
+
+  toast.success("Message collection started", { id: "info-collect" });
 
   // Create cancellable child task to collect messages
   const { cancel: cancelCollector } = fork(async ({ delay, signal }) => {

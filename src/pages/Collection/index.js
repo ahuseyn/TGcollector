@@ -81,7 +81,7 @@ export default function Collection() {
 
     try {
       const readyChannels = channelInput.replace(/\s/g, "").split(",");
-      const values = await getChannelsTG(client, readyChannels);
+      const values = await getChannelsTG(client.current, readyChannels);
       const channels = values.filter((item) => item.data).map(reshapeChannels);
       await insertChannelsIDB(collection.id, channels);
 

@@ -10,12 +10,15 @@ import {
   Tooltip,
 } from "@mantine/core";
 import { IconPlayerPause, IconPlayerPlay } from "@tabler/icons";
+import { ClientContext } from "components/ClientProvider";
 import { getActiveJob } from "helpers/getActiveJob";
+import { useContext } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { onResumeJob, stopJob } from "store/reducers/root";
+import { stopJob } from "store/reducers/root";
 
 export default function ActiveJob() {
   const dispatch = useDispatch();
+  const client = useContext(ClientContext);
   const jobs = useSelector((state) => state.jobs, shallowEqual);
   const data = getActiveJob(jobs);
 
@@ -36,14 +39,18 @@ export default function ActiveJob() {
   };
 
   const onResume = () => {
-    dispatch(
-      onResumeJob({
+    dispatch({
+      type: "root/resumeJob",
+      payload: {
         id: data.id,
         name: data.name,
         params: data.params,
         current: data.current,
-      })
-    );
+      },
+      meta: {
+        client: client.current,
+      },
+    });
   };
 
   return (
@@ -91,6 +98,7 @@ export default function ActiveJob() {
                   ? "Resume the task"
                   : "Pause the task to continue later"
               }
+              withArrow
             >
               <ActionIcon
                 variant="filled"

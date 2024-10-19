@@ -1,12 +1,15 @@
 import { Box, ScrollArea, Table, Text } from "@mantine/core";
+import { ClientContext } from "components/ClientProvider";
 import { deleteIDB } from "helpers/deleteIDB";
+import { useContext } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { deleteJob, onResumeJob } from "store/reducers/root";
+import { deleteJob } from "store/reducers/root";
 import JobItem from "./JobItem";
 
 export default function JobsTable({ collection }) {
-  const jobs = useSelector((state) => state.jobs, shallowEqual);
   const dispatch = useDispatch();
+  const client = useContext(ClientContext);
+  const jobs = useSelector((state) => state.jobs, shallowEqual);
 
   const jobArr =
     Object.values(jobs).filter(
@@ -30,14 +33,18 @@ export default function JobsTable({ collection }) {
   };
 
   const onResume = (data) => {
-    dispatch(
-      onResumeJob({
+    dispatch({
+      type: "root/resumeJob",
+      payload: {
         id: data.id,
         name: data.name,
         params: data.params,
         current: data.current,
-      })
-    );
+      },
+      meta: {
+        client: client.current,
+      },
+    });
   };
 
   return (
