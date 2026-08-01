@@ -1,5 +1,5 @@
 import { Analytics } from "@vercel/analytics/react";
-import Navigation from "Navigation";
+import Navigation from "./Navigation";
 import ClientProvider from "components/ClientProvider";
 import ReactDOM from "react-dom/client";
 import { Toaster } from "react-hot-toast";

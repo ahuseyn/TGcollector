@@ -19,15 +19,15 @@ module.exports = defineConfig({
   workers: 1,
   reporter: process.env.CI ? "github" : "list",
   use: {
-    baseURL: "http://127.0.0.1:4173",
+    baseURL: "http://localhost:4173",
     trace: !keepArtifacts ? "off" : "on-first-retry",
     screenshot: !keepArtifacts ? "off" : "only-on-failure",
     video: !keepArtifacts ? "off" : "retain-on-failure",
     acceptDownloads: true,
   },
   webServer: {
-    command: "PORT=4173 yarn dev",
-    url: "http://127.0.0.1:4173",
+    command: "pnpm dev --port 4173",
+    url: "http://localhost:4173",
     reuseExistingServer: !process.env.CI,
     timeout: 120000,
   },

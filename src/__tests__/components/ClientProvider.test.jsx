@@ -1,3 +1,4 @@
+import { vi } from "vitest";
 import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import ClientProvider, { ClientContext } from "components/ClientProvider";
@@ -6,21 +7,21 @@ import { configureStore } from "@reduxjs/toolkit";
 import { TelegramClient } from "telegram";
 import { StringSession } from "telegram/sessions";
 
-jest.mock("telegram", () => ({
-  TelegramClient: jest.fn(),
+vi.mock("telegram", () => ({
+  TelegramClient: vi.fn(),
 }));
 
-jest.mock("telegram/sessions", () => ({
-  StringSession: jest.fn(),
+vi.mock("telegram/sessions", () => ({
+  StringSession: vi.fn(),
 }));
 
 describe("ClientProvider", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it("should provide a client when valid user credentials are in store", async () => {
-    const mockConnect = jest.fn().mockResolvedValue();
+    const mockConnect = vi.fn().mockResolvedValue();
     const mockClientInstance = {
       connect: mockConnect,
     };
@@ -60,12 +61,12 @@ describe("ClientProvider", () => {
   });
   
   it("should catch connect error", async () => {
-    const mockConnect = jest.fn().mockRejectedValue(new Error("connect error"));
+    const mockConnect = vi.fn().mockRejectedValue(new Error("connect error"));
     TelegramClient.mockImplementation(() => ({
       connect: mockConnect,
     }));
     
-    const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
 
     const store = configureStore({
       reducer: {

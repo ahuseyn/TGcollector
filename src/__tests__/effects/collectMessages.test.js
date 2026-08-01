@@ -1,3 +1,4 @@
+import { vi } from "vitest";
 import { getClient } from "client/getClient";
 import { getHistory } from "helpers/getHistory";
 import { openDB } from "idb";
@@ -5,31 +6,31 @@ import toast from "react-hot-toast";
 import { collectMessages } from "store/effects/collectMessages";
 import { stopJob, updateJob } from "store/reducers/root";
 
-jest.mock("client/getClient", () => ({
-  getClient: jest.fn(),
+vi.mock("client/getClient", () => ({
+  getClient: vi.fn(),
 }));
 
-jest.mock("helpers/getHistory", () => ({
-  getHistory: jest.fn(),
+vi.mock("helpers/getHistory", () => ({
+  getHistory: vi.fn(),
 }));
 
-jest.mock("idb", () => ({
-  openDB: jest.fn(),
+vi.mock("idb", () => ({
+  openDB: vi.fn(),
 }));
 
-jest.mock("react-hot-toast", () => ({
+vi.mock("react-hot-toast", () => ({
   __esModule: true,
   default: {
-    error: jest.fn(),
-    success: jest.fn(),
+    error: vi.fn(),
+    success: vi.fn(),
   },
 }));
 
-jest.mock("store/reducers/root", () => {
-  const stopJob = jest.fn((payload) => ({ type: "stopJob", payload }));
-  stopJob.match = jest.fn((action) => action?.type === "stopJob");
+vi.mock("store/reducers/root", () => {
+  const stopJob = vi.fn((payload) => ({ type: "stopJob", payload }));
+  stopJob.match = vi.fn((action) => action?.type === "stopJob");
 
-  const updateJob = jest.fn((payload) => ({ type: "updateJob", payload }));
+  const updateJob = vi.fn((payload) => ({ type: "updateJob", payload }));
 
   return {
     stopJob,
@@ -42,31 +43,31 @@ const createHarness = ({
   waitForChild = true,
   onDelay,
 } = {}) => {
-  const dispatch = jest.fn();
+  const dispatch = vi.fn();
   const signal = { aborted };
   let childPromise = Promise.resolve();
 
-  const delay = jest.fn(async (ms) => {
+  const delay = vi.fn(async (ms) => {
     if (onDelay) onDelay({ ms, signal });
   });
 
-  const cancel = jest.fn(() => {
+  const cancel = vi.fn(() => {
     signal.aborted = true;
   });
 
-  const fork = jest.fn((runner) => {
+  const fork = vi.fn((runner) => {
     childPromise = runner({ delay, signal });
     return { cancel };
   });
 
-  const condition = jest.fn(async () => {
+  const condition = vi.fn(async () => {
     if (waitForChild) await childPromise;
     return true;
   });
 
   return {
     dispatch,
-    getState: jest.fn(() => ({ user: { id: "user-1" } })),
+    getState: vi.fn(() => ({ user: { id: "user-1" } })),
     fork,
     condition,
     delay,
@@ -98,16 +99,16 @@ const withTimeout = (promise, timeoutMs = 5000) =>
   ]);
 
 describe("collectMessages", () => {
-  const mockDb = { add: jest.fn() };
+  const mockDb = { add: vi.fn() };
   let consoleErrorSpy;
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     mockDb.add.mockReset();
     getClient.mockResolvedValue({ client: true });
     getHistory.mockResolvedValue({ messages: [], chats: [], count: 0 });
     openDB.mockResolvedValue(mockDb);
-    consoleErrorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+    consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
   });
 
   afterEach(() => {

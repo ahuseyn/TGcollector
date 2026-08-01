@@ -1,27 +1,28 @@
+import { vi } from "vitest";
 import { getChannelsTG } from "helpers/getChannelsTG";
 import { toast } from "react-hot-toast";
 import { Api } from "telegram";
 
-jest.mock("react-hot-toast", () => ({
+vi.mock("react-hot-toast", () => ({
   toast: {
-    loading: jest.fn(),
-    error: jest.fn(),
+    loading: vi.fn(),
+    error: vi.fn(),
   },
 }));
 
 describe("getChannelsTG", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
-    jest.useFakeTimers();
+    vi.clearAllMocks();
+    vi.useFakeTimers();
   });
 
   afterEach(() => {
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it("should get full channel for each channel with delay", async () => {
     const client = {
-      invoke: jest.fn(),
+      invoke: vi.fn(),
     };
 
     client.invoke.mockResolvedValueOnce({
@@ -35,7 +36,7 @@ describe("getChannelsTG", () => {
     
     const promise = getChannelsTG(client, channels);
     
-    jest.advanceTimersByTime(300); // Fast-forward time for the intervals
+    vi.advanceTimersByTime(300); // Fast-forward time for the intervals
     
     const result = await promise;
 
@@ -49,7 +50,7 @@ describe("getChannelsTG", () => {
 
   it("should handle error during getFullChannel", async () => {
     const client = {
-      invoke: jest.fn(),
+      invoke: vi.fn(),
     };
 
     client.invoke.mockRejectedValueOnce(new Error("channel not found"));
@@ -57,7 +58,7 @@ describe("getChannelsTG", () => {
     const channels = ["chan1"];
     const promise = getChannelsTG(client, channels);
     
-    jest.advanceTimersByTime(0);
+    vi.advanceTimersByTime(0);
     
     const result = await promise;
 

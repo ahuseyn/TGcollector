@@ -161,7 +161,9 @@ test("add channels and rename collection", async ({ page }) => {
   ).toBeVisible();
 });
 
-test("collect messages and manage collection job lifecycle", async ({ page }) => {
+test("collect messages and manage collection job lifecycle", async ({
+  page,
+}) => {
   await openNewCollection(page);
   await addChannelsToCollection(page, auth.channels);
 
@@ -241,7 +243,7 @@ test("delete channel and collection", async ({ page }) => {
   const deleteBtn = page.locator("main button").nth(1);
   await deleteBtn.click();
   await page.getByRole("button", { name: "Delete", exact: true }).click();
-  await expect(page).toHaveURL("http://127.0.0.1:4173/");
+  await expect(page).toHaveURL("http://localhost:4173/");
 });
 
 test("session restore after reload", async ({ page }) => {

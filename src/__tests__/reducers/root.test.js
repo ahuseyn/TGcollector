@@ -1,3 +1,4 @@
+import { vi } from "vitest";
 import reducer, {
   insertCollection,
   renameCollection,
@@ -166,9 +167,9 @@ describe("Root Reducer", () => {
 
 describe("onResumeJob Thunk", () => {
   it("should resume job if no active job", () => {
-    const dispatch = jest.fn();
+    const dispatch = vi.fn();
     const getState = () => ({ jobs: {} });
-    jest.spyOn(getActiveJobHelper, "getActiveJob").mockReturnValue(null);
+    vi.spyOn(getActiveJobHelper, "getActiveJob").mockReturnValue(null);
     
     onResumeJob({ id: "job1" })(dispatch, getState);
     
@@ -179,10 +180,10 @@ describe("onResumeJob Thunk", () => {
   });
 
   it("should throw concurrency error if there is an active job not equal to payload.id", () => {
-    const dispatch = jest.fn();
+    const dispatch = vi.fn();
     const getState = () => ({ jobs: {} });
-    jest.spyOn(getActiveJobHelper, "getActiveJob").mockReturnValue({ id: "job2" });
-    const concurrencySpy = jest.spyOn(concurrencyErrorHelper, "concurrencyError").mockReturnValue("error");
+    vi.spyOn(getActiveJobHelper, "getActiveJob").mockReturnValue({ id: "job2" });
+    const concurrencySpy = vi.spyOn(concurrencyErrorHelper, "concurrencyError").mockReturnValue("error");
     
     onResumeJob({ id: "job1" })(dispatch, getState);
     
@@ -191,9 +192,9 @@ describe("onResumeJob Thunk", () => {
   });
 
   it("should resume job if active job is the same", () => {
-    const dispatch = jest.fn();
+    const dispatch = vi.fn();
     const getState = () => ({ jobs: {} });
-    jest.spyOn(getActiveJobHelper, "getActiveJob").mockReturnValue({ id: "job1" });
+    vi.spyOn(getActiveJobHelper, "getActiveJob").mockReturnValue({ id: "job1" });
     
     onResumeJob({ id: "job1" })(dispatch, getState);
     

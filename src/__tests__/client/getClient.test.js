@@ -1,21 +1,22 @@
+import { vi } from "vitest";
 import { getClient } from "client/getClient";
 import { TelegramClient } from "telegram";
 import { StringSession } from "telegram/sessions";
 
-jest.mock("telegram", () => ({
-  TelegramClient: jest.fn(),
+vi.mock("telegram", () => ({
+  TelegramClient: vi.fn(),
 }));
 
-jest.mock("telegram/sessions", () => ({
-  StringSession: jest.fn(),
+vi.mock("telegram/sessions", () => ({
+  StringSession: vi.fn(),
 }));
 
 describe("getClient", () => {
   let mockConnect;
 
   beforeEach(() => {
-    jest.clearAllMocks();
-    mockConnect = jest.fn().mockResolvedValue(true);
+    vi.clearAllMocks();
+    mockConnect = vi.fn().mockResolvedValue(true);
     TelegramClient.mockImplementation(() => ({
       connect: mockConnect,
     }));
@@ -37,7 +38,7 @@ describe("getClient", () => {
   });
 
   it("should log error and return undefined/null if connection fails", async () => {
-    const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
     mockConnect.mockRejectedValue(new Error("connect failed"));
     const user = {
       api: "12345,myhash",
@@ -52,7 +53,7 @@ describe("getClient", () => {
   });
 
   it("should return null if user params are invalid", async () => {
-    const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
     const user = {
       api: "",
       session: "",

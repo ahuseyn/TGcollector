@@ -25,31 +25,27 @@
     "react-hot-toast": "^2.4.1",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.7.0",
-    "react-scripts": "5.0.1",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
     "telegram": "^2.15.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "dev": "react-scripts start",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "test:unit": "CI=true react-scripts test --watch=false",
-    "test:unit:watch": "react-scripts test",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
     "test:e2e": "playwright test",
     "test:e2e:headed": "playwright test --headed",
     "test:e2e:debug": "playwright test --debug",
     "test:e2e:clean-auth": "node scripts/clean-test-auth.js",
-    "test:e2e:fresh": "yarn test:e2e:clean-auth && playwright test --project=setup --headed && playwright test --project=chromium",
+    "test:e2e:fresh": "pnpm test:e2e:clean-auth && playwright test --project=setup --headed && playwright test --project=chromium",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "extends": []
   },
   "browserslist": {
     "production": [
@@ -63,9 +59,15 @@
       "last 1 safari version"
     ]
   },
-  "packageManager": "yarn@4.4.1+sha256.920b4530755296dc2ce8b4351f057d4a26429524fcb2789d277560d94837c27e",
   "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.5",
     "dotenv": "^17.4.2",
-    "husky": "^9.1.7"
-  }
+    "husky": "^9.1.7",
+    "jsdom": "^30.0.1",
+    "vite": "^8.2.0",
+    "vite-plugin-node-polyfills": "^0.28.0",
+    "vite-tsconfig-paths": "^6.1.1",
+    "vitest": "^4.1.10"
+  },
+  "packageManager": "pnpm@10.11.1+sha512.e519b9f7639869dc8d5c3c5dfef73b3f091094b0a006d7317353c72b124e80e1afd429732e28705ad6bfa1ee879c1fce46c128ccebd3192101f43dd67c667912"
 }

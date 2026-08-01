@@ -1,9 +1,10 @@
+import { vi } from "vitest";
 import { getActiveJob } from "helpers/getActiveJob";
 import { postRehydrate } from "store/effects/postRehydrate";
 import { onResumeJob } from "store/reducers/root";
 
-jest.mock("store/reducers/root", () => ({
-  onResumeJob: jest.fn((payload) => ({ type: "onResumeJob", payload })),
+vi.mock("store/reducers/root", () => ({
+  onResumeJob: vi.fn((payload) => ({ type: "onResumeJob", payload })),
 }));
 
 describe("getActiveJob", () => {
@@ -28,7 +29,7 @@ describe("getActiveJob", () => {
 
 describe("postRehydrate", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test("dispatches resume action for an active progress job", async () => {
@@ -49,7 +50,7 @@ describe("postRehydrate", () => {
       },
     };
 
-    const dispatch = jest.fn();
+    const dispatch = vi.fn();
 
     await postRehydrate({ payload: { jobs } }, { dispatch });
 
@@ -63,7 +64,7 @@ describe("postRehydrate", () => {
   });
 
   test("does not dispatch when there is no progress job", async () => {
-    const dispatch = jest.fn();
+    const dispatch = vi.fn();
     const jobs = {
       pausedJob: {
         id: "pausedJob",

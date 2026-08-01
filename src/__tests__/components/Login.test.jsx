@@ -1,3 +1,4 @@
+import { vi } from "vitest";
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import Login from "components/Layout/Login";
@@ -6,16 +7,16 @@ import { configureStore } from "@reduxjs/toolkit";
 import { MemoryRouter } from "react-router-dom";
 import { TelegramClient, Api } from "telegram";
 
-jest.mock("telegram", () => {
-  const original = jest.requireActual("telegram");
+vi.mock("telegram", () => {
+  const original = vi.requireActual("telegram");
   return {
     ...original,
-    TelegramClient: jest.fn(),
+    TelegramClient: vi.fn(),
   };
 });
 
-jest.mock("telegram/sessions", () => ({
-  StringSession: jest.fn(),
+vi.mock("telegram/sessions", () => ({
+  StringSession: vi.fn(),
 }));
 
 const renderWithProviders = (ui, { preloadedState = {} } = {}) => {
@@ -35,7 +36,7 @@ const renderWithProviders = (ui, { preloadedState = {} } = {}) => {
 
 describe("Login Component", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it("should render initial login form", () => {
@@ -50,15 +51,15 @@ describe("Login Component", () => {
   });
 
   it("should handle login process and change stage on QR code", async () => {
-    const mockConnect = jest.fn().mockResolvedValue();
-    const mockSignInUserWithQrCode = jest.fn().mockImplementation((cred, callbacks) => {
+    const mockConnect = vi.fn().mockResolvedValue();
+    const mockSignInUserWithQrCode = vi.fn().mockImplementation((cred, callbacks) => {
       // Simulate QR code callback
       callbacks.qrCode({ token: Buffer.from("testtoken") });
       return Promise.resolve(new Api.User({ phone: "123", firstName: "Test" }));
     });
-    const mockDisconnect = jest.fn().mockResolvedValue();
+    const mockDisconnect = vi.fn().mockResolvedValue();
     
-    const mockSession = { save: jest.fn().mockReturnValue("sessionString") };
+    const mockSession = { save: vi.fn().mockReturnValue("sessionString") };
     
     TelegramClient.mockImplementation(() => ({
       connect: mockConnect,
@@ -81,7 +82,7 @@ describe("Login Component", () => {
   });
 
   it("should handle error during login", async () => {
-    const mockConnect = jest.fn().mockRejectedValue(new Error("connect failed"));
+    const mockConnect = vi.fn().mockRejectedValue(new Error("connect failed"));
     TelegramClient.mockImplementation(() => ({
       connect: mockConnect,
     }));
